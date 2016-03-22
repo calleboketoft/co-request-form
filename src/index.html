@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <!-- Required meta tags always come first -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta http-equiv="x-ua-compatible" content="ie=edge">
+    <link href="css/bootstrap.css" rel="stylesheet" />
+    <title>Angular 2 ES6 App</title>
+  </head>
+  <body style="margin-top: 50px;">
+    <app>Loading...</app>
+    <script src="../node_modules/angular2/bundles/angular2-polyfills.js"></script>
+    <script src="../node_modules/systemjs/dist/system.js"></script>
+    <script src="systemjs.config.js"></script>
+    <script>
+      System.import('./example/bootstrap')
+    </script>
+  </body>
+</html>

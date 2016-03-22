@@ -1,0 +1,47 @@
+{
+  "name": "co-request-form",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "start": "node server",
+    "build": "npm run typescript",
+    "prepublish": "npm run build",
+    "typescript": "tsc -p .",
+    "watch": "tsc -p . -w"
+  },
+  "config": {
+    "ghooks": {
+      "pre-commit": "npm run build"
+    }
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/calleboketoft/co-request-form.git"
+  },
+  "keywords": [
+    "angular2"
+  ],
+  "author": "Carl-Ola Boketoft",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/calleboketoft/co-request-form/issues"
+  },
+  "homepage": "https://github.com/calleboketoft/co-request-form#readme",
+  "dependencies": {
+    "angular2": "2.0.0-beta.11",
+    "es6-promise": "3.1.2",
+    "es6-shim": "0.35.0",
+    "reflect-metadata": "0.1.2",
+    "rxjs": "5.0.0-beta.2",
+    "systemjs": "0.19.24",
+    "zone.js": "0.6.5"
+  },
+  "devDependencies": {
+    "bootstrap": "git+https://git@github.com/twbs/bootstrap.git#v4-dev",
+    "express": "4.13.4",
+    "gulp": "3.9.1",
+    "gulp-sass": "2.2.0",
+    "typescript": "1.8.9"
+  }
+}
