@@ -14,6 +14,9 @@ import {HTTP_PROVIDERS} from 'angular2/http'
     <div class='container'>
       <h3>co-request-form-cmp</h3>
       <co-request-form-cmp
+        [url]='"http://someurl"'
+        [method]='"GET"'
+        [body]='"{}"'
         (request)='_makeRequest($event)'>
       </co-request-form-cmp>
     </div>

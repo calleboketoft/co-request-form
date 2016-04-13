@@ -14,12 +14,14 @@ var CoRequestFormCmp = (function () {
     function CoRequestFormCmp(_formBuilder) {
         this._formBuilder = _formBuilder;
         this.request = new core_1.EventEmitter();
-        this._requestForm = _formBuilder.group({
-            'url': [''],
-            'method': ['GET'],
-            'body': ['{}']
-        });
     }
+    CoRequestFormCmp.prototype.ngOnInit = function () {
+        this._requestForm = this._formBuilder.group({
+            'url': [this.url || ''],
+            'method': [this.method || 'GET'],
+            'body': [this.body || '{}']
+        });
+    };
     CoRequestFormCmp.prototype._onSubmit = function () {
         this.request.emit({
             url: this._requestForm.controls.url.value,
@@ -31,6 +33,18 @@ var CoRequestFormCmp = (function () {
         core_1.Output(), 
         __metadata('design:type', Object)
     ], CoRequestFormCmp.prototype, "request", void 0);
+    __decorate([
+        core_1.Input(), 
+        __metadata('design:type', Object)
+    ], CoRequestFormCmp.prototype, "url", void 0);
+    __decorate([
+        core_1.Input(), 
+        __metadata('design:type', Object)
+    ], CoRequestFormCmp.prototype, "method", void 0);
+    __decorate([
+        core_1.Input(), 
+        __metadata('design:type', Object)
+    ], CoRequestFormCmp.prototype, "body", void 0);
     CoRequestFormCmp = __decorate([
         core_1.Component({
             selector: 'co-request-form-cmp',

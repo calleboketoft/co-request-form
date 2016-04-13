@@ -27,7 +27,7 @@ var AppCmp = (function () {
                 http_1.HTTP_PROVIDERS,
                 example_api_service_1.ExampleApiService
             ],
-            template: "\n    <div class='container'>\n      <h3>co-request-form-cmp</h3>\n      <co-request-form-cmp\n        (request)='_makeRequest($event)'>\n      </co-request-form-cmp>\n    </div>\n  "
+            template: "\n    <div class='container'>\n      <h3>co-request-form-cmp</h3>\n      <co-request-form-cmp\n        [url]='\"http://someurl\"'\n        [method]='\"GET\"'\n        [body]='\"{}\"'\n        (request)='_makeRequest($event)'>\n      </co-request-form-cmp>\n    </div>\n  "
         }), 
         __metadata('design:paramtypes', [example_api_service_1.ExampleApiService])
     ], AppCmp);

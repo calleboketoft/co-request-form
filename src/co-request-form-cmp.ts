@@ -1,4 +1,4 @@
-import {Component, Output, EventEmitter} from 'angular2/core'
+import {Component, Input, Output, EventEmitter} from 'angular2/core'
 import {FormBuilder} from 'angular2/common'
 
 @Component({
@@ -45,15 +45,20 @@ import {FormBuilder} from 'angular2/common'
 })
 export class CoRequestFormCmp {
   @Output() request = new EventEmitter();
+  @Input() url;
+  @Input() method;
+  @Input() body;
   private _requestForm;
 
   constructor (
     private _formBuilder: FormBuilder
-  ) {
-    this._requestForm = _formBuilder.group({
-      'url': [''],
-      'method': ['GET'],
-      'body': ['{}']
+  ) {}
+
+  ngOnInit () {
+    this._requestForm = this._formBuilder.group({
+      'url': [this.url || ''],
+      'method': [this.method || 'GET'],
+      'body': [this.body || '{}']
     })
   }
 
