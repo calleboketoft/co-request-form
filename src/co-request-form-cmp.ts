@@ -41,24 +41,42 @@ import {FormBuilder} from 'angular2/common'
         </div>
       </div>
     </form>
-  `
+  `,
+  inputs: [
+    '_url: url',
+    '_method: method',
+    '_body: body'
+  ]
 })
 export class CoRequestFormCmp {
   @Output() request = new EventEmitter();
-  @Input() url;
-  @Input() method;
-  @Input() body;
   private _requestForm;
+
+  set _url (value) {
+    this._updateFormControl('url', value)
+  }
+
+  set _bank (value) {
+    this._updateFormControl('bank', value)
+  }
+
+  set _method (value) {
+    this._updateFormControl('method', value)
+  }
+
+  private _updateFormControl (key, value) {
+    if (value) {
+      this._requestForm.controls[key].updateValue(value)
+    }
+  }
 
   constructor (
     private _formBuilder: FormBuilder
-  ) {}
-
-  ngOnInit () {
+  ) {
     this._requestForm = this._formBuilder.group({
-      'url': [this.url || ''],
-      'method': [this.method || 'GET'],
-      'body': [this.body || '{}']
+      'url': [''],
+      'method': ['GET'],
+      'body': ['{}']
     })
   }
 
