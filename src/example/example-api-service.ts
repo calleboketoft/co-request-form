@@ -1,7 +1,7 @@
 // Simple example of an API service
 
-import {Injectable} from 'angular2/core'
-import {Http, Request, Headers} from 'angular2/http'
+import {Injectable} from '@angular/core'
+import {Http, Request, Headers} from '@angular/http'
 
 @Injectable()
 export class ExampleApiService {

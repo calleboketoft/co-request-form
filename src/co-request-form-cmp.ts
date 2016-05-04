@@ -1,5 +1,5 @@
-import {Component, Input, Output, EventEmitter} from 'angular2/core'
-import {FormBuilder} from 'angular2/common'
+import {Component, Input, Output, EventEmitter} from '@angular/core'
+import {FormBuilder} from '@angular/common'
 
 @Component({
   selector: 'co-request-form-cmp',
