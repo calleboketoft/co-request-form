@@ -9,8 +9,8 @@ var __metadata = (this && this.__metadata) || function (k, v) {
     if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
 var core_1 = require('@angular/core');
-var co_request_form_cmp_1 = require('../co-request-form-cmp');
-var example_api_service_1 = require('./example-api-service');
+var co_request_form_component_1 = require('../co-request-form.component');
+var example_api_service_1 = require('./example-api.service');
 var http_1 = require('@angular/http');
 var AppCmp = (function () {
     function AppCmp(_exampleApiService) {
@@ -22,7 +22,7 @@ var AppCmp = (function () {
     AppCmp = __decorate([
         core_1.Component({
             selector: 'app',
-            directives: [co_request_form_cmp_1.CoRequestFormCmp],
+            directives: [co_request_form_component_1.CoRequestFormCmp],
             providers: [
                 http_1.HTTP_PROVIDERS,
                 example_api_service_1.ExampleApiService
@@ -34,4 +34,4 @@ var AppCmp = (function () {
     return AppCmp;
 }());
 exports.AppCmp = AppCmp;
-//# sourceMappingURL=app-cmp.js.map
+//# sourceMappingURL=app.component.js.map

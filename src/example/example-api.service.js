@@ -34,4 +34,4 @@ var ExampleApiService = (function () {
     return ExampleApiService;
 }());
 exports.ExampleApiService = ExampleApiService;
-//# sourceMappingURL=example-api-service.js.map
+//# sourceMappingURL=example-api.service.js.map

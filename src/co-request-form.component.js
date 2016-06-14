@@ -72,4 +72,4 @@ var CoRequestFormCmp = (function () {
     return CoRequestFormCmp;
 }());
 exports.CoRequestFormCmp = CoRequestFormCmp;
-//# sourceMappingURL=co-request-form-cmp.js.map
+//# sourceMappingURL=co-request-form.component.js.map
