@@ -1,11 +1,11 @@
 import {Component} from '@angular/core'
-import {CoRequestFormCmp} from '../co-request-form.component'
+import {CoRequestFormComponent} from '../co-request-form.component'
 import {ExampleApiService} from './example-api.service'
 import {HTTP_PROVIDERS} from '@angular/http'
 
 @Component({
   selector: 'app',
-  directives: [CoRequestFormCmp],
+  directives: [CoRequestFormComponent],
   providers: [
     HTTP_PROVIDERS,
     ExampleApiService

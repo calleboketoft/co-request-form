@@ -48,7 +48,7 @@ import {FormBuilder} from '@angular/common'
     '_body: body'
   ]
 })
-export class CoRequestFormCmp {
+export class CoRequestFormComponent {
   @Output() request = new EventEmitter();
   private _requestForm;
 
