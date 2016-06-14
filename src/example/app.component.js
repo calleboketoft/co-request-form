@@ -22,7 +22,7 @@ var AppCmp = (function () {
     AppCmp = __decorate([
         core_1.Component({
             selector: 'app',
-            directives: [co_request_form_component_1.CoRequestFormCmp],
+            directives: [co_request_form_component_1.CoRequestFormComponent],
             providers: [
                 http_1.HTTP_PROVIDERS,
                 example_api_service_1.ExampleApiService

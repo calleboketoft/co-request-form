@@ -10,8 +10,8 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 };
 var core_1 = require('@angular/core');
 var common_1 = require('@angular/common');
-var CoRequestFormCmp = (function () {
-    function CoRequestFormCmp(_formBuilder) {
+var CoRequestFormComponent = (function () {
+    function CoRequestFormComponent(_formBuilder) {
         this._formBuilder = _formBuilder;
         this.request = new core_1.EventEmitter();
         this._requestForm = this._formBuilder.group({
@@ -20,33 +20,33 @@ var CoRequestFormCmp = (function () {
             'body': ['{}']
         });
     }
-    Object.defineProperty(CoRequestFormCmp.prototype, "_url", {
+    Object.defineProperty(CoRequestFormComponent.prototype, "_url", {
         set: function (value) {
             this._updateFormControl('url', value);
         },
         enumerable: true,
         configurable: true
     });
-    Object.defineProperty(CoRequestFormCmp.prototype, "_bank", {
+    Object.defineProperty(CoRequestFormComponent.prototype, "_bank", {
         set: function (value) {
             this._updateFormControl('bank', value);
         },
         enumerable: true,
         configurable: true
     });
-    Object.defineProperty(CoRequestFormCmp.prototype, "_method", {
+    Object.defineProperty(CoRequestFormComponent.prototype, "_method", {
         set: function (value) {
             this._updateFormControl('method', value);
         },
         enumerable: true,
         configurable: true
     });
-    CoRequestFormCmp.prototype._updateFormControl = function (key, value) {
+    CoRequestFormComponent.prototype._updateFormControl = function (key, value) {
         if (value) {
             this._requestForm.controls[key].updateValue(value);
         }
     };
-    CoRequestFormCmp.prototype._onSubmit = function () {
+    CoRequestFormComponent.prototype._onSubmit = function () {
         this.request.emit({
             url: this._requestForm.controls.url.value,
             body: this._requestForm.controls.body.value,
@@ -56,8 +56,8 @@ var CoRequestFormCmp = (function () {
     __decorate([
         core_1.Output(), 
         __metadata('design:type', Object)
-    ], CoRequestFormCmp.prototype, "request", void 0);
-    CoRequestFormCmp = __decorate([
+    ], CoRequestFormComponent.prototype, "request", void 0);
+    CoRequestFormComponent = __decorate([
         core_1.Component({
             selector: 'co-request-form-cmp',
             template: "\n    <form [ngFormModel]='_requestForm' (ngSubmit)='_onSubmit()'>\n      <div class='row'>\n        <div class='col-sm-4'>\n          <fieldset class='form-group'>\n            <label>URL</label>\n            <input type='text' class='form-control' ngControl='url'>\n            <small class='text-muted'>URL</small>\n          </fieldset>\n        </div>\n        <div class='col-sm-4'>\n          <fieldset class='form-group'>\n            <label>Method</label>\n            <input type='text' class='form-control' ngControl='method'>\n            <small class='text-muted'>GET/POST/PUT/DELETE</small>\n          </fieldset>\n        </div>\n        <div class='col-sm-4'>\n          <label>&nbsp;</label><br>\n          <button type='submit' class='btn btn-success'>\n            Submit\n          </button>\n        </div>\n      </div>\n\n      <div class='row'>\n        <div class='col-sm-8'>\n          <fieldset class='form-group'>\n            <label>Body</label>\n            <textarea class='form-control' ngControl='body' rows='3'></textarea>\n            <small class='text-muted'>Body of POST or PUT requests</small>\n          </fieldset>\n        </div>\n        <div class='col-sm-4'>\n          <p></p>\n        </div>\n      </div>\n    </form>\n  ",
@@ -68,8 +68,8 @@ var CoRequestFormCmp = (function () {
             ]
         }), 
         __metadata('design:paramtypes', [common_1.FormBuilder])
-    ], CoRequestFormCmp);
-    return CoRequestFormCmp;
+    ], CoRequestFormComponent);
+    return CoRequestFormComponent;
 }());
-exports.CoRequestFormCmp = CoRequestFormCmp;
+exports.CoRequestFormComponent = CoRequestFormComponent;
 //# sourceMappingURL=co-request-form.component.js.map
