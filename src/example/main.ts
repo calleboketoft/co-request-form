@@ -1,3 +1,6 @@
 import {bootstrap} from '@angular/platform-browser-dynamic'
 import {AppCmp} from './app.component'
-bootstrap(AppCmp)
+import {provideForms} from '@angular/forms'
+bootstrap(AppCmp, [
+  provideForms()
+])

@@ -1,22 +1,23 @@
 import {Component, Input, Output, EventEmitter} from '@angular/core'
-import {FormBuilder} from '@angular/common'
+import {FormBuilder, REACTIVE_FORM_DIRECTIVES} from '@angular/forms'
 
 @Component({
   selector: 'co-request-form-cmp',
+  directives: [REACTIVE_FORM_DIRECTIVES],
   template: `
-    <form [ngFormModel]='_requestForm' (ngSubmit)='_onSubmit()'>
+    <form [formGroup]='requestForm' (ngSubmit)='onSubmit()'>
       <div class='row'>
         <div class='col-sm-4'>
           <fieldset class='form-group'>
             <label>URL</label>
-            <input type='text' class='form-control' ngControl='url'>
+            <input type='text' class='form-control' formControlName='url'>
             <small class='text-muted'>URL</small>
           </fieldset>
         </div>
         <div class='col-sm-4'>
           <fieldset class='form-group'>
             <label>Method</label>
-            <input type='text' class='form-control' ngControl='method'>
+            <input type='text' class='form-control' formControlName='method'>
             <small class='text-muted'>GET/POST/PUT/DELETE</small>
           </fieldset>
         </div>
@@ -32,7 +33,7 @@ import {FormBuilder} from '@angular/common'
         <div class='col-sm-8'>
           <fieldset class='form-group'>
             <label>Body</label>
-            <textarea class='form-control' ngControl='body' rows='3'></textarea>
+            <textarea class='form-control' formControlName='body' rows='3'></textarea>
             <small class='text-muted'>Body of POST or PUT requests</small>
           </fieldset>
         </div>
@@ -41,50 +42,41 @@ import {FormBuilder} from '@angular/common'
         </div>
       </div>
     </form>
-  `,
-  inputs: [
-    '_url: url',
-    '_method: method',
-    '_body: body'
-  ]
+  `
 })
 export class CoRequestFormComponent {
+  @Input() method;
+  @Input() url;
+  @Input() body;
   @Output() request = new EventEmitter();
-  private _requestForm;
+  private requestForm;
 
-  set _url (value) {
-    this._updateFormControl('url', value)
-  }
-
-  set _bank (value) {
-    this._updateFormControl('bank', value)
-  }
-
-  set _method (value) {
-    this._updateFormControl('method', value)
-  }
-
-  private _updateFormControl (key, value) {
-    if (value) {
-      this._requestForm.controls[key].updateValue(value)
-    }
-  }
-
-  constructor (
-    private _formBuilder: FormBuilder
-  ) {
-    this._requestForm = this._formBuilder.group({
+  constructor (private formBuilder: FormBuilder) {
+    this.requestForm = this.formBuilder.group({
       'url': [''],
       'method': ['GET'],
       'body': ['{}']
     })
   }
 
-  private _onSubmit () {
+  // not very graceful, but does the job
+  ngOnChanges (changes) {
+    if (changes.url && changes.url.currentValue) {
+      this.requestForm.controls['url'].updateValue(changes.url.currentValue)
+    }
+    if (changes.method && changes.method.currentValue) {
+      this.requestForm.controls['method'].updateValue(changes.method.currentValue)
+    }
+    if (changes.body && changes.body.currentValue) {
+      this.requestForm.controls['body'].updateValue(changes.body.currentValue)
+    }
+  }
+
+  private onSubmit () {
     this.request.emit({
-      url: this._requestForm.controls.url.value,
-      body: this._requestForm.controls.body.value,
-      method: this._requestForm.controls.method.value
+      url: this.requestForm.controls.url.value,
+      body: this.requestForm.controls.body.value,
+      method: this.requestForm.controls.method.value
     })
   }
 }
