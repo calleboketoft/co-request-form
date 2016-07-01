@@ -5,7 +5,7 @@ import {FormBuilder, REACTIVE_FORM_DIRECTIVES} from '@angular/forms'
   selector: 'co-request-form-cmp',
   directives: [REACTIVE_FORM_DIRECTIVES],
   template: `
-    <form [formGroup]='requestForm' (ngSubmit)='onSubmit()'>
+    <form [formGroup]='requestForm'>
       <div class='row'>
         <div class='col-sm-4'>
           <fieldset class='form-group'>
@@ -23,7 +23,7 @@ import {FormBuilder, REACTIVE_FORM_DIRECTIVES} from '@angular/forms'
         </div>
         <div class='col-sm-4'>
           <label>&nbsp;</label><br>
-          <button type='submit' class='btn btn-success'>
+          <button type='button' class='btn btn-success' (click)='onSubmit()'>
             Submit
           </button>
         </div>
