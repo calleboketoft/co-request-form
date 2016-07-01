@@ -12,20 +12,15 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 var core_1 = require('@angular/core');
 var http_1 = require('@angular/http');
 var ExampleApiService = (function () {
-    function ExampleApiService(_http) {
-        this._http = _http;
+    function ExampleApiService(http) {
+        this.http = http;
     }
-    // config object = {
-    //   url: 'http://something',
-    //   method: 'GET/PUT/POST/DELETE',
-    //   body: '{"stringified": "body"}'
-    // }
     ExampleApiService.prototype.request = function (_a) {
         var url = _a.url, method = _a.method, body = _a.body;
         var headers = new http_1.Headers({
             'Content-Type': 'application/json'
         });
-        return this._http.request(new http_1.Request({ headers: headers, method: method, url: url, body: body }));
+        return this.http.request(new http_1.Request({ headers: headers, method: method, url: url, body: body }));
     };
     ExampleApiService = __decorate([
         core_1.Injectable(), 

@@ -13,11 +13,12 @@ var co_request_form_component_1 = require('../co-request-form.component');
 var example_api_service_1 = require('./example-api.service');
 var http_1 = require('@angular/http');
 var AppCmp = (function () {
-    function AppCmp(_exampleApiService) {
-        this._exampleApiService = _exampleApiService;
+    function AppCmp(exampleApiService) {
+        this.exampleApiService = exampleApiService;
     }
-    AppCmp.prototype._makeRequest = function (config) {
-        this._exampleApiService.request(config);
+    AppCmp.prototype.makeRequest = function (config) {
+        console.log(config);
+        this.exampleApiService.request(config);
     };
     AppCmp = __decorate([
         core_1.Component({
@@ -27,7 +28,7 @@ var AppCmp = (function () {
                 http_1.HTTP_PROVIDERS,
                 example_api_service_1.ExampleApiService
             ],
-            template: "\n    <div class='container'>\n      <h3>co-request-form-cmp</h3>\n      <co-request-form-cmp\n        [url]='\"http://someurl\"'\n        [method]='\"GET\"'\n        [body]='\"{}\"'\n        (request)='_makeRequest($event)'>\n      </co-request-form-cmp>\n    </div>\n  "
+            template: "\n    <div class='container'>\n      <h3>co-request-form-cmp</h3>\n      <co-request-form-cmp\n        [url]='\"http://someurl\"'\n        [method]='\"GET\"'\n        [body]='\"{}\"'\n        (request)='makeRequest($event)'>\n      </co-request-form-cmp>\n    </div>\n  "
         }), 
         __metadata('design:paramtypes', [example_api_service_1.ExampleApiService])
     ], AppCmp);

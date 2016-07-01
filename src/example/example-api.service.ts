@@ -3,21 +3,22 @@
 import {Injectable} from '@angular/core'
 import {Http, Request, Headers} from '@angular/http'
 
+export interface Config {
+  url: string
+  method: string
+  body: string
+}
+
 @Injectable()
 export class ExampleApiService {
   constructor (
-    private _http: Http
+    private http: Http
   ) {}
 
-  // config object = {
-  //   url: 'http://something',
-  //   method: 'GET/PUT/POST/DELETE',
-  //   body: '{"stringified": "body"}'
-  // }
-  public request ({url, method, body}) {
+  public request ({url, method, body}: Config) {
     let headers = new Headers({
       'Content-Type': 'application/json'
     })
-    return this._http.request(new Request({headers, method, url, body}))
+    return this.http.request(new Request({headers, method, url, body}))
   }
 }

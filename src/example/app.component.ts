@@ -17,17 +17,16 @@ import {HTTP_PROVIDERS} from '@angular/http'
         [url]='"http://someurl"'
         [method]='"GET"'
         [body]='"{}"'
-        (request)='_makeRequest($event)'>
+        (request)='makeRequest($event)'>
       </co-request-form-cmp>
     </div>
   `
 })
 export class AppCmp {
-  constructor (
-    private _exampleApiService: ExampleApiService
-  ) {}
+  constructor (private exampleApiService: ExampleApiService) {}
 
-  private _makeRequest (config) {
-    this._exampleApiService.request(config)
+  private makeRequest (config) {
+    console.log(config)
+    this.exampleApiService.request(config)
   }
 }
