@@ -27,6 +27,7 @@ var AppCmp = (function () {
         ];
     }
     AppCmp.prototype.makeRequest = function (config) {
+        console.log('Emitted from component: ', config);
         this.exampleApiService.request(config);
     };
     AppCmp = __decorate([

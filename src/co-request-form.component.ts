@@ -48,10 +48,12 @@ import {FormBuilder, REACTIVE_FORM_DIRECTIVES} from '@angular/forms'
         <div class="col-sm-8">
           <div class="row" *ngFor="let header of headers; let i = index;" style="margin-bottom: 5px;">
             <div class="col-xs-5">
-              <input type="text" class="form-control" [value]="header.key">
+              <input type="text" class="form-control"
+                [ngModelOptions]="{standalone: true}" [(ngModel)]="header.key">
             </div>
             <div class="col-xs-5">
-              <input type="text" class="form-control" [value]="header.value">
+              <input type="text" class="form-control"
+                [ngModelOptions]="{standalone: true}" [(ngModel)]="header.value">
             </div>
             <div class="col-xs-1">
               <p></p>
