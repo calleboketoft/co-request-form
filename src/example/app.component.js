@@ -27,7 +27,6 @@ var AppCmp = (function () {
         ];
     }
     AppCmp.prototype.makeRequest = function (config) {
-        console.log(config);
         this.exampleApiService.request(config);
     };
     AppCmp = __decorate([

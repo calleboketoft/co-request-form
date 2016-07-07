@@ -6,7 +6,8 @@ import {Http, Request, Headers} from '@angular/http'
 export interface Config {
   url: string
   method: string
-  body: string
+  body: string,
+  headers?: any[]
 }
 
 @Injectable()
@@ -15,10 +16,22 @@ export class ExampleApiService {
     private http: Http
   ) {}
 
-  public request ({url, method, body}: Config) {
-    let headers = new Headers({
-      'Content-Type': 'application/json'
-    })
-    return this.http.request(new Request({headers, method, url, body}))
+  public request ({url, method, body, headers = []}: Config) {
+
+    let headersObj = {}
+    if (headers.length > 0) {
+      headersObj = headers.reduce((mem, curr) => {
+        mem[curr.key] = curr.value
+        return mem
+      }, {})
+    }
+
+    let headersMerged = new Headers(headersObj)
+    return this.http.request(new Request({
+      headers: headersMerged,
+      method,
+      url,
+      body
+    }))
   }
 }

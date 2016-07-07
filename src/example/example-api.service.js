@@ -16,11 +16,21 @@ var ExampleApiService = (function () {
         this.http = http;
     }
     ExampleApiService.prototype.request = function (_a) {
-        var url = _a.url, method = _a.method, body = _a.body;
-        var headers = new http_1.Headers({
-            'Content-Type': 'application/json'
-        });
-        return this.http.request(new http_1.Request({ headers: headers, method: method, url: url, body: body }));
+        var url = _a.url, method = _a.method, body = _a.body, _b = _a.headers, headers = _b === void 0 ? [] : _b;
+        var headersObj = {};
+        if (headers.length > 0) {
+            headersObj = headers.reduce(function (mem, curr) {
+                mem[curr.key] = curr.value;
+                return mem;
+            }, {});
+        }
+        var headersMerged = new http_1.Headers(headersObj);
+        return this.http.request(new http_1.Request({
+            headers: headersMerged,
+            method: method,
+            url: url,
+            body: body
+        }));
     };
     ExampleApiService = __decorate([
         core_1.Injectable(), 

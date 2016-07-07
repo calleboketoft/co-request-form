@@ -27,7 +27,6 @@ export class AppCmp {
   constructor (private exampleApiService: ExampleApiService) {}
 
   public makeRequest (config) {
-    console.log(config)
     this.exampleApiService.request(config)
   }
 
