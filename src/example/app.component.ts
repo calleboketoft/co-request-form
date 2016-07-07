@@ -14,10 +14,11 @@ import {HTTP_PROVIDERS} from '@angular/http'
     <div class='container'>
       <h3>co-request-form-cmp</h3>
       <co-request-form-cmp
-        [url]='"http://someurl"'
-        [method]='"GET"'
-        [body]='"{}"'
-        (request)='makeRequest($event)'>
+        [url]="'http://someurl'"
+        [method]="'GET'"
+        [body]="'{}'"
+        [headers]="preconfiguredHeaders"
+        (request)="makeRequest($event)">
       </co-request-form-cmp>
     </div>
   `
@@ -25,8 +26,19 @@ import {HTTP_PROVIDERS} from '@angular/http'
 export class AppCmp {
   constructor (private exampleApiService: ExampleApiService) {}
 
-  private makeRequest (config) {
+  public makeRequest (config) {
     console.log(config)
     this.exampleApiService.request(config)
   }
+
+  public preconfiguredHeaders = [
+    {
+      key: 'Content-Type',
+      value: 'application/json'
+    },
+    {
+      key: 'Accept',
+      value: 'application/json;charset=UTF-8'
+    }
+  ]
 }
