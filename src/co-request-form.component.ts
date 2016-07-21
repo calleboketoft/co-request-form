@@ -11,14 +11,17 @@ import {FormBuilder, REACTIVE_FORM_DIRECTIVES} from '@angular/forms'
           <fieldset class="form-group">
             <label>URL</label>
             <input type="text" class="form-control" formControlName="url">
-            <small class="text-muted">URL</small>
           </fieldset>
         </div>
         <div class="col-sm-4">
           <fieldset class="form-group">
             <label>Method</label>
-            <input type="text" class="form-control" formControlName="method">
-            <small class="text-muted">GET/POST/PUT/DELETE</small>
+            <select class="form-control" formControlName="method" #method>
+              <option *ngFor="let option of methodOptions"
+                [value]="option">
+                {{option}}
+              </option>
+            </select>
           </fieldset>
         </div>
         <div class="col-sm-4">
@@ -29,12 +32,12 @@ import {FormBuilder, REACTIVE_FORM_DIRECTIVES} from '@angular/forms'
         </div>
       </div>
 
-      <div class="row">
+      <div class="row"
+        [hidden]="requestForm.controls.method.value !== 'POST' && requestForm.controls.method.value !== 'PUT'">
         <div class="col-sm-8">
           <fieldset class="form-group">
             <label>Body</label>
             <textarea class="form-control" formControlName="body" rows="3"></textarea>
-            <small class="text-muted">Body of POST or PUT requests</small>
           </fieldset>
         </div>
         <div class="col-sm-4">
@@ -105,9 +108,16 @@ export class CoRequestFormComponent {
   @Input() body;
   @Input() headers = [];
   @Output() request = new EventEmitter();
-  private requestForm;
 
-  constructor (private formBuilder: FormBuilder) {
+  public methodOptions = [
+    'GET',
+    'POST',
+    'PUT',
+    'DELETE'
+  ]
+  public requestForm;
+
+  constructor (public formBuilder: FormBuilder) {
     this.requestForm = this.formBuilder.group({
       'url': [''],
       'method': ['GET'],
