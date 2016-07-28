@@ -106,8 +106,11 @@ export class CoRequestFormComponent implements OnInit {
 
   constructor (public formBuilder: FormBuilder) {}
 
-  // initialize only once, then the data in the component is considered local
   ngOnInit () {
+    this.initializeForm()
+  }
+
+  public initializeForm () {
     // headersarr is used in the template to render list of header inputs
     this.headersArr = Object.keys(this.headers).map(headerKey => headerKey)
     let headersControlsObj = Object.keys(this.headers).reduce((mem, curr) => {
