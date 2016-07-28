@@ -1,5 +1,15 @@
-import {Component, Input, Output, EventEmitter} from '@angular/core'
-import {FormBuilder, REACTIVE_FORM_DIRECTIVES} from '@angular/forms'
+import {
+  Component,
+  Input,
+  Output,
+  EventEmitter,
+  OnInit
+} from '@angular/core'
+import {
+  FormBuilder,
+  REACTIVE_FORM_DIRECTIVES,
+  FormControl
+} from '@angular/forms'
 
 @Component({
   selector: 'co-request-form-cmp',
@@ -49,21 +59,20 @@ import {FormBuilder, REACTIVE_FORM_DIRECTIVES} from '@angular/forms'
 
       <div class="row">
         <div class="col-sm-8">
-          <div class="row" *ngFor="let header of headers; let i = index;" style="margin-bottom: 5px;">
+          <div class="row" style="margin-bottom: 5px;"
+            *ngFor="let header of headers">
             <div class="col-xs-5">
-              <input type="text" class="form-control"
-                [ngModelOptions]="{standalone: true}" [(ngModel)]="header.key">
+              {{header.key}}
             </div>
             <div class="col-xs-5">
-              <input type="text" class="form-control"
-                [ngModelOptions]="{standalone: true}" [(ngModel)]="header.value">
+              <input type="text" class="form-control" [formControlName]="'header-'+header.key">
             </div>
             <div class="col-xs-1">
               <p></p>
             </div>
             <div class="col-xs-1">
               <button type="button" class="btn btn-danger"
-                (click)="removeHeaderRow(i)">
+                (click)="removeHeaderRow(header)">
                 -
               </button>
             </div>
@@ -102,12 +111,15 @@ import {FormBuilder, REACTIVE_FORM_DIRECTIVES} from '@angular/forms'
     </form>
   `
 })
-export class CoRequestFormComponent {
-  @Input() method;
-  @Input() url;
-  @Input() body;
+export class CoRequestFormComponent implements OnInit {
+  @Input() method = 'GET';
+  @Input() url = '';
+  @Input() body = '{}';
   @Input() headers = [];
   @Output() request = new EventEmitter();
+
+  // keep track of which headers are currently present
+  public headersArr = [];
 
   public methodOptions = [
     'GET',
@@ -117,34 +129,38 @@ export class CoRequestFormComponent {
   ]
   public requestForm;
 
-  constructor (public formBuilder: FormBuilder) {
-    this.requestForm = this.formBuilder.group({
-      'url': [''],
-      'method': ['GET'],
-      'body': ['{}']
-    })
+  constructor (public formBuilder: FormBuilder) {}
+
+  // initialize only once, then the data in the component is considered local
+  ngOnInit () {
+    let headersObj = this.headers.reduce((mem, curr) => {
+      mem['header-' + curr.key] = [curr.value]
+      return mem
+    }, {})
+    let formOptions = Object.assign({
+      'url': [this.url],
+      'method': [this.method],
+      'body': [this.body]
+    }, headersObj)
+    this.requestForm = this.formBuilder.group(formOptions)
   }
 
-  // not very graceful, but does the job
-  ngOnChanges (changes) {
-    if (changes.url && changes.url.currentValue) {
-      this.requestForm.controls['url'].updateValue(changes.url.currentValue)
-    }
-    if (changes.method && changes.method.currentValue) {
-      this.requestForm.controls['method'].updateValue(changes.method.currentValue)
-    }
-    if (changes.body && changes.body.currentValue) {
-      this.requestForm.controls['body'].updateValue(changes.body.currentValue)
-    }
-  }
+  public addHeaderRow (newHeaderKey, newHeaderValue) {
+    // TODO check if the specific header already exists, if it does,
+    // just update its value instead of creating new
+    newHeaderKey.value = ''
+    newHeaderValue.value = ''
 
-  public addHeaderRow (key, value) {
+    let headerControlKey = 'header-' + newHeaderKey
+    let headerControl = new FormControl(newHeaderValue)
+
+    // Keep the headers arr up to date for the template rendering
     this.headers.push({
-      key: key.value,
-      value: value.value
+      key: newHeaderKey,
+      value: newHeaderValue
     })
-    key.value = ''
-    value.value = ''
+
+    this.requestForm.controls.addControl(headerControlKey, headerControl)
   }
 
   public removeHeaderRow (index) {
@@ -152,11 +168,20 @@ export class CoRequestFormComponent {
   }
 
   private onSubmit () {
+    let headers = Object.keys(this.requestForm.controls).reduce((mem, curr) => {
+      if (curr.startsWith('header-')) {
+        mem.push({
+          key: curr,
+          value: this.requestForm.controls[curr]
+        })
+      }
+      return mem
+    }, [])
     this.request.emit({
       url: this.requestForm.controls.url.value,
       body: this.requestForm.controls.body.value,
       method: this.requestForm.controls.method.value,
-      headers: this.headers
+      headers: headers
     })
   }
 }
