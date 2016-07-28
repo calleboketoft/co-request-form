@@ -1,15 +1,9 @@
 import {Component, ViewChild} from '@angular/core'
 import {CoRequestFormComponent} from '../co-request-form.component'
-import {ExampleApiService} from './example-api.service'
-import {HTTP_PROVIDERS} from '@angular/http'
 
 @Component({
   selector: 'app',
   directives: [CoRequestFormComponent],
-  providers: [
-    HTTP_PROVIDERS,
-    ExampleApiService
-  ],
   template: `
     <div class='container'>
       <h3>co-request-form-cmp</h3>
@@ -19,7 +13,7 @@ import {HTTP_PROVIDERS} from '@angular/http'
         [body]="'{}'"
         [headers]="preconfiguredHeaders">
       </co-request-form-cmp>
-      <button class="btn btn-primary" (click)="makeRequest()">
+      <button class="btn btn-primary" (click)="getRequestValues()">
         Get request form values
       </button>
     </div>
@@ -28,11 +22,8 @@ import {HTTP_PROVIDERS} from '@angular/http'
 export class AppCmp {
   @ViewChild(CoRequestFormComponent) coRequestFormComponent: CoRequestFormComponent;
 
-  constructor (private exampleApiService: ExampleApiService) {}
-
-  public makeRequest () {
+  public getRequestValues () {
     console.log(this.coRequestFormComponent.request())
-    // this.exampleApiService.request()
   }
 
   public preconfiguredHeaders = {

@@ -10,19 +10,15 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 };
 var core_1 = require('@angular/core');
 var co_request_form_component_1 = require('../co-request-form.component');
-var example_api_service_1 = require('./example-api.service');
-var http_1 = require('@angular/http');
 var AppCmp = (function () {
-    function AppCmp(exampleApiService) {
-        this.exampleApiService = exampleApiService;
+    function AppCmp() {
         this.preconfiguredHeaders = {
             'Content-Type': 'application/json',
             'Accept': 'application/json;charset=UTF-8'
         };
     }
-    AppCmp.prototype.makeRequest = function () {
+    AppCmp.prototype.getRequestValues = function () {
         console.log(this.coRequestFormComponent.request());
-        // this.exampleApiService.request()
     };
     __decorate([
         core_1.ViewChild(co_request_form_component_1.CoRequestFormComponent), 
@@ -32,13 +28,9 @@ var AppCmp = (function () {
         core_1.Component({
             selector: 'app',
             directives: [co_request_form_component_1.CoRequestFormComponent],
-            providers: [
-                http_1.HTTP_PROVIDERS,
-                example_api_service_1.ExampleApiService
-            ],
-            template: "\n    <div class='container'>\n      <h3>co-request-form-cmp</h3>\n      <co-request-form-cmp\n        [url]=\"'http://someurl'\"\n        [method]=\"'GET'\"\n        [body]=\"'{}'\"\n        [headers]=\"preconfiguredHeaders\">\n      </co-request-form-cmp>\n      <button class=\"btn btn-primary\" (click)=\"makeRequest()\">\n        Get request form values\n      </button>\n    </div>\n  "
+            template: "\n    <div class='container'>\n      <h3>co-request-form-cmp</h3>\n      <co-request-form-cmp\n        [url]=\"'http://someurl'\"\n        [method]=\"'GET'\"\n        [body]=\"'{}'\"\n        [headers]=\"preconfiguredHeaders\">\n      </co-request-form-cmp>\n      <button class=\"btn btn-primary\" (click)=\"getRequestValues()\">\n        Get request form values\n      </button>\n    </div>\n  "
         }), 
-        __metadata('design:paramtypes', [example_api_service_1.ExampleApiService])
+        __metadata('design:paramtypes', [])
     ], AppCmp);
     return AppCmp;
 }());
