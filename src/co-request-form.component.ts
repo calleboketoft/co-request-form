@@ -148,19 +148,21 @@ export class CoRequestFormComponent implements OnInit {
   public addHeaderRow (newHeaderKey, newHeaderValue) {
     // TODO check if the specific header already exists, if it does,
     // just update its value instead of creating new
-    newHeaderKey.value = ''
-    newHeaderValue.value = ''
 
-    let headerControlKey = 'header-' + newHeaderKey
-    let headerControl = new FormControl(newHeaderValue)
+    let headerControlKey = 'header-' + newHeaderKey.value
+    let headerControl = new FormControl(newHeaderValue.value)
 
     // Keep the headers arr up to date for the template rendering
     this.headers.push({
-      key: newHeaderKey,
-      value: newHeaderValue
+      key: newHeaderKey.value,
+      value: newHeaderValue.value
     })
 
-    this.requestForm.controls.addControl(headerControlKey, headerControl)
+    this.requestForm.addControl(headerControlKey, headerControl)
+
+    // clear inputs in form
+    newHeaderKey.value = ''
+    newHeaderValue.value = ''
   }
 
   public removeHeaderRow (index) {
