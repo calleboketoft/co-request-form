@@ -57,7 +57,7 @@ import {
 
       <label>Headers</label>
 
-      <div class="row">
+      <div class="row" formGroupName="headers">
         <div class="col-sm-8">
           <div class="row" style="margin-bottom: 5px;"
             *ngFor="let header of headers">
@@ -65,7 +65,7 @@ import {
               {{header.key}}
             </div>
             <div class="col-xs-5">
-              <input type="text" class="form-control" [formControlName]="'header-'+header.key">
+              <input type="text" class="form-control" [formControlName]="header.key">
             </div>
             <div class="col-xs-1">
               <p></p>
@@ -82,19 +82,24 @@ import {
           <p></p>
         </div>
       </div>
+    </form>
 
+    <!-- Add new header TODO make into form-->
+    <form [formGroup]="newHeaderForm">
       <div class="row">
         <div class="col-sm-8">
           <div class="row">
             <div class="col-xs-5">
-              <input type="text" #newHeaderKey class="form-control" placeholder="New header">
+              <input type="text" class="form-control" placeholder="New header"
+                formControlName="newHeaderKey">
             </div>
             <div class="col-xs-5">
-              <input type="text" #newHeaderValue class="form-control" placeholder="New header value">
+              <input type="text" class="form-control" placeholder="New header value"
+                formControlName="newHeaderValue">
             </div>
             <div class="col-xs-1">
               <button type="button" class="btn btn-success"
-                (click)="addHeaderRow(newHeaderKey, newHeaderValue);">
+                (click)="addHeaderRow()">
                 +
               </button>
             </div>
@@ -107,7 +112,6 @@ import {
           </div>
         </div>
       </div>
-
     </form>
   `
 })
@@ -128,55 +132,65 @@ export class CoRequestFormComponent implements OnInit {
     'DELETE'
   ]
   public requestForm;
+  public newHeaderForm;
 
   constructor (public formBuilder: FormBuilder) {}
 
   // initialize only once, then the data in the component is considered local
   ngOnInit () {
     let headersObj = this.headers.reduce((mem, curr) => {
-      mem['header-' + curr.key] = [curr.value]
+      mem[curr.key] = [curr.value]
       return mem
     }, {})
-    let formOptions = Object.assign({
+    this.requestForm = this.formBuilder.group({
       'url': [this.url],
       'method': [this.method],
-      'body': [this.body]
-    }, headersObj)
-    this.requestForm = this.formBuilder.group(formOptions)
+      'body': [this.body],
+      'headers': this.formBuilder.group(headersObj)
+    })
+
+    this.newHeaderForm = this.formBuilder.group({
+      'newHeaderKey': [''],
+      'newHeaderValue': ['']
+    })
   }
 
-  public addHeaderRow (newHeaderKey, newHeaderValue) {
+  public addHeaderRow () {
     // TODO check if the specific header already exists, if it does,
     // just update its value instead of creating new
+    let newHeaderKeyControl = this.newHeaderForm.controls.newHeaderKey
+    let newHeaderValueControl = this.newHeaderForm.controls.newHeaderValue
 
-    let headerControlKey = 'header-' + newHeaderKey.value
-    let headerControl = new FormControl(newHeaderValue.value)
+    let headerControlKey = newHeaderKeyControl.value
+    let headerControl = new FormControl(newHeaderValueControl.value)
 
     // Keep the headers arr up to date for the template rendering
     this.headers.push({
-      key: newHeaderKey.value,
-      value: newHeaderValue.value
+      key: newHeaderKeyControl.value,
+      value: newHeaderValueControl.value
     })
 
-    this.requestForm.addControl(headerControlKey, headerControl)
+    this.requestForm.controls.headers.addControl(headerControlKey, headerControl)
 
     // clear inputs in form
-    newHeaderKey.value = ''
-    newHeaderValue.value = ''
+    newHeaderKeyControl.updateValue('')
+    newHeaderValueControl.updateValue('')
   }
 
-  public removeHeaderRow (index) {
-    this.headers.splice(index, 1)
+  public removeHeaderRow (headerToRemove) {
+    // Remove from form
+    this.requestForm.controls.headers.removeControl(headerToRemove.key)
+    // Remove from header array
+    this.headers = this.headers.filter(header => header.key !== headerToRemove.key)
   }
 
   private onSubmit () {
-    let headers = Object.keys(this.requestForm.controls).reduce((mem, curr) => {
-      if (curr.startsWith('header-')) {
-        mem.push({
-          key: curr,
-          value: this.requestForm.controls[curr]
-        })
-      }
+    // go through the headers and get their values
+    let headers = Object.keys(this.requestForm.controls.headers.controls).reduce((mem, curr) => {
+      mem.push({
+        key: curr,
+        value: this.requestForm.controls.headers.controls[curr].value
+      })
       return mem
     }, [])
     this.request.emit({
