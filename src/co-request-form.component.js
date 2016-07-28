@@ -26,8 +26,10 @@ var CoRequestFormComponent = (function () {
             'DELETE'
         ];
     }
-    // initialize only once, then the data in the component is considered local
     CoRequestFormComponent.prototype.ngOnInit = function () {
+        this.initializeForm();
+    };
+    CoRequestFormComponent.prototype.initializeForm = function () {
         var _this = this;
         // headersarr is used in the template to render list of header inputs
         this.headersArr = Object.keys(this.headers).map(function (headerKey) { return headerKey; });
