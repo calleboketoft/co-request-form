@@ -30,12 +30,7 @@ var CoRequestFormComponent = (function () {
     CoRequestFormComponent.prototype.ngOnInit = function () {
         var _this = this;
         // headersarr is used in the template to render list of header inputs
-        this.headersArr = Object.keys(this.headers).map(function (headerKey) {
-            return {
-                key: headerKey,
-                value: _this.headers[headerKey]
-            };
-        });
+        this.headersArr = Object.keys(this.headers).map(function (headerKey) { return headerKey; });
         var headersControlsObj = Object.keys(this.headers).reduce(function (mem, curr) {
             mem[curr] = [_this.headers[curr]];
             return mem;
@@ -59,10 +54,7 @@ var CoRequestFormComponent = (function () {
         var headerControlKey = newHeaderKeyControl.value;
         var headerControl = new forms_1.FormControl(newHeaderValueControl.value);
         // Keep the headers arr up to date for the template rendering
-        this.headersArr.push({
-            key: newHeaderKeyControl.value,
-            value: newHeaderValueControl.value
-        });
+        this.headersArr.push(newHeaderKeyControl.value);
         this.requestForm.controls.headers.addControl(headerControlKey, headerControl);
         // clear inputs in form
         newHeaderKeyControl.updateValue('');
@@ -70,9 +62,9 @@ var CoRequestFormComponent = (function () {
     };
     CoRequestFormComponent.prototype.removeHeaderRow = function (headerToRemove) {
         // Remove from form
-        this.requestForm.controls.headers.removeControl(headerToRemove.key);
+        this.requestForm.controls.headers.removeControl(headerToRemove);
         // Remove from header array
-        this.headersArr = this.headersArr.filter(function (header) { return header.key !== headerToRemove.key; });
+        this.headersArr = this.headersArr.filter(function (headerKey) { return headerKey !== headerToRemove; });
     };
     CoRequestFormComponent.prototype.request = function () {
         var _this = this;
@@ -108,7 +100,7 @@ var CoRequestFormComponent = (function () {
         core_1.Component({
             selector: 'co-request-form-cmp',
             directives: [forms_1.REACTIVE_FORM_DIRECTIVES],
-            template: "\n    <form [formGroup]=\"requestForm\">\n      <div class=\"row\">\n        <div class=\"col-sm-8\">\n          <fieldset class=\"form-group\">\n            <label>URL</label>\n            <input type=\"text\" class=\"form-control\" formControlName=\"url\">\n          </fieldset>\n        </div>\n        <div class=\"col-sm-4\">\n          <fieldset class=\"form-group\">\n            <label>Method</label>\n            <select class=\"form-control\" formControlName=\"method\" #method>\n              <option *ngFor=\"let option of methodOptions\"\n                [value]=\"option\">\n                {{option}}\n              </option>\n            </select>\n          </fieldset>\n        </div>\n      </div>\n\n      <div class=\"row\"\n        [hidden]=\"requestForm.controls.method.value !== 'POST' && requestForm.controls.method.value !== 'PUT'\">\n        <div class=\"col-sm-12\">\n          <fieldset class=\"form-group\">\n            <label>Body</label>\n            <textarea class=\"form-control\" formControlName=\"body\" rows=\"3\"></textarea>\n          </fieldset>\n        </div>\n      </div>\n\n      <label>Headers</label>\n\n      <div class=\"row\" style=\"margin-bottom: 5px;\" formGroupName=\"headers\"\n        *ngFor=\"let header of headersArr\">\n        <div class=\"col-xs-4\">\n          <input type=\"text\" disabled [value]=\"header.key\" class=\"form-control\">\n        </div>\n        <div class=\"col-xs-4\">\n          <input type=\"text\" class=\"form-control\" [formControlName]=\"header.key\">\n        </div>\n        <div class=\"col-xs-2\">\n          <button type=\"button\" class=\"btn btn-danger\"\n            (click)=\"removeHeaderRow(header)\">\n            Remove\n          </button>\n        </div>\n      </div>\n    </form>\n\n    <!-- Add new header TODO make into form-->\n    <form [formGroup]=\"newHeaderForm\">\n      <div class=\"row\">\n        <div class=\"col-xs-4\">\n          <input type=\"text\" class=\"form-control\" placeholder=\"New header\"\n            formControlName=\"newHeaderKey\">\n        </div>\n        <div class=\"col-xs-4\">\n          <input type=\"text\" class=\"form-control\" placeholder=\"New header value\"\n            formControlName=\"newHeaderValue\">\n        </div>\n        <div class=\"col-xs-2\">\n          <button type=\"button\" class=\"btn btn-success\"\n            (click)=\"addHeaderRow()\">\n            Add\n          </button>\n        </div>\n      </div>\n    </form>\n  "
+            template: "\n    <form [formGroup]=\"requestForm\">\n      <div class=\"row\">\n        <div class=\"col-sm-8\">\n          <fieldset class=\"form-group\">\n            <label>URL</label>\n            <input type=\"text\" class=\"form-control\" formControlName=\"url\">\n          </fieldset>\n        </div>\n        <div class=\"col-sm-4\">\n          <fieldset class=\"form-group\">\n            <label>Method</label>\n            <select class=\"form-control\" formControlName=\"method\" #method>\n              <option *ngFor=\"let option of methodOptions\"\n                [value]=\"option\">\n                {{option}}\n              </option>\n            </select>\n          </fieldset>\n        </div>\n      </div>\n\n      <div class=\"row\"\n        [hidden]=\"requestForm.controls.method.value !== 'POST' && requestForm.controls.method.value !== 'PUT'\">\n        <div class=\"col-sm-12\">\n          <fieldset class=\"form-group\">\n            <label>Body</label>\n            <textarea class=\"form-control\" formControlName=\"body\" rows=\"3\"></textarea>\n          </fieldset>\n        </div>\n      </div>\n\n      <label>Headers</label>\n\n      <div class=\"row\" style=\"margin-bottom: 5px;\" formGroupName=\"headers\"\n        *ngFor=\"let headerKey of headersArr\">\n        <div class=\"col-xs-4\">\n          <input type=\"text\" disabled [value]=\"headerKey\" class=\"form-control\">\n        </div>\n        <div class=\"col-xs-4\">\n          <input type=\"text\" class=\"form-control\" [formControlName]=\"headerKey\">\n        </div>\n        <div class=\"col-xs-2\">\n          <button type=\"button\" class=\"btn btn-danger\"\n            (click)=\"removeHeaderRow(headerKey)\">\n            Remove\n          </button>\n        </div>\n      </div>\n    </form>\n\n    <!-- Add new header TODO make into form-->\n    <form [formGroup]=\"newHeaderForm\">\n      <div class=\"row\">\n        <div class=\"col-xs-4\">\n          <input type=\"text\" class=\"form-control\" placeholder=\"New header\"\n            formControlName=\"newHeaderKey\">\n        </div>\n        <div class=\"col-xs-4\">\n          <input type=\"text\" class=\"form-control\" placeholder=\"New header value\"\n            formControlName=\"newHeaderValue\">\n        </div>\n        <div class=\"col-xs-2\">\n          <button type=\"button\" class=\"btn btn-success\"\n            (click)=\"addHeaderRow()\">\n            Add\n          </button>\n        </div>\n      </div>\n    </form>\n  "
         }), 
         __metadata('design:paramtypes', [forms_1.FormBuilder])
     ], CoRequestFormComponent);

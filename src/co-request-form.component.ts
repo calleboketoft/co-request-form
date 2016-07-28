@@ -49,16 +49,16 @@ import {
       <label>Headers</label>
 
       <div class="row" style="margin-bottom: 5px;" formGroupName="headers"
-        *ngFor="let header of headersArr">
+        *ngFor="let headerKey of headersArr">
         <div class="col-xs-4">
-          <input type="text" disabled [value]="header.key" class="form-control">
+          <input type="text" disabled [value]="headerKey" class="form-control">
         </div>
         <div class="col-xs-4">
-          <input type="text" class="form-control" [formControlName]="header.key">
+          <input type="text" class="form-control" [formControlName]="headerKey">
         </div>
         <div class="col-xs-2">
           <button type="button" class="btn btn-danger"
-            (click)="removeHeaderRow(header)">
+            (click)="removeHeaderRow(headerKey)">
             Remove
           </button>
         </div>
@@ -109,12 +109,7 @@ export class CoRequestFormComponent implements OnInit {
   // initialize only once, then the data in the component is considered local
   ngOnInit () {
     // headersarr is used in the template to render list of header inputs
-    this.headersArr = Object.keys(this.headers).map(headerKey => {
-      return {
-        key: headerKey,
-        value: this.headers[headerKey]
-      }
-    })
+    this.headersArr = Object.keys(this.headers).map(headerKey => headerKey)
     let headersControlsObj = Object.keys(this.headers).reduce((mem, curr) => {
       mem[curr] = [this.headers[curr]]
       return mem
@@ -142,10 +137,7 @@ export class CoRequestFormComponent implements OnInit {
     let headerControl = new FormControl(newHeaderValueControl.value)
 
     // Keep the headers arr up to date for the template rendering
-    this.headersArr.push({
-      key: newHeaderKeyControl.value,
-      value: newHeaderValueControl.value
-    })
+    this.headersArr.push(newHeaderKeyControl.value)
 
     this.requestForm.controls.headers.addControl(headerControlKey, headerControl)
 
@@ -156,9 +148,9 @@ export class CoRequestFormComponent implements OnInit {
 
   public removeHeaderRow (headerToRemove) {
     // Remove from form
-    this.requestForm.controls.headers.removeControl(headerToRemove.key)
+    this.requestForm.controls.headers.removeControl(headerToRemove)
     // Remove from header array
-    this.headersArr = this.headersArr.filter(header => header.key !== headerToRemove.key)
+    this.headersArr = this.headersArr.filter(headerKey => headerKey !== headerToRemove)
   }
 
   public request () {
