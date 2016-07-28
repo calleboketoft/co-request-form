@@ -17,7 +17,7 @@ import {
   template: `
     <form [formGroup]="requestForm">
       <div class="row">
-        <div class="col-sm-4">
+        <div class="col-sm-8">
           <fieldset class="form-group">
             <label>URL</label>
             <input type="text" class="form-control" formControlName="url">
@@ -34,52 +34,33 @@ import {
             </select>
           </fieldset>
         </div>
-        <div class="col-sm-4">
-          <label>&nbsp;</label><br>
-          <button type="button" class="btn btn-success" (click)="onSubmit()">
-            Submit
-          </button>
-        </div>
       </div>
 
       <div class="row"
         [hidden]="requestForm.controls.method.value !== 'POST' && requestForm.controls.method.value !== 'PUT'">
-        <div class="col-sm-8">
+        <div class="col-sm-12">
           <fieldset class="form-group">
             <label>Body</label>
             <textarea class="form-control" formControlName="body" rows="3"></textarea>
           </fieldset>
         </div>
-        <div class="col-sm-4">
-          <p></p>
-        </div>
       </div>
 
       <label>Headers</label>
 
-      <div class="row" formGroupName="headers">
-        <div class="col-sm-8">
-          <div class="row" style="margin-bottom: 5px;"
-            *ngFor="let header of headers">
-            <div class="col-xs-5">
-              {{header.key}}
-            </div>
-            <div class="col-xs-5">
-              <input type="text" class="form-control" [formControlName]="header.key">
-            </div>
-            <div class="col-xs-1">
-              <p></p>
-            </div>
-            <div class="col-xs-1">
-              <button type="button" class="btn btn-danger"
-                (click)="removeHeaderRow(header)">
-                -
-              </button>
-            </div>
-          </div>
+      <div class="row" style="margin-bottom: 5px;" formGroupName="headers"
+        *ngFor="let header of headersArr">
+        <div class="col-xs-4">
+          <input type="text" disabled [value]="header.key" class="form-control">
         </div>
-        <div class="col-sm-4">
-          <p></p>
+        <div class="col-xs-4">
+          <input type="text" class="form-control" [formControlName]="header.key">
+        </div>
+        <div class="col-xs-2">
+          <button type="button" class="btn btn-danger"
+            (click)="removeHeaderRow(header)">
+            Remove
+          </button>
         </div>
       </div>
     </form>
@@ -87,29 +68,19 @@ import {
     <!-- Add new header TODO make into form-->
     <form [formGroup]="newHeaderForm">
       <div class="row">
-        <div class="col-sm-8">
-          <div class="row">
-            <div class="col-xs-5">
-              <input type="text" class="form-control" placeholder="New header"
-                formControlName="newHeaderKey">
-            </div>
-            <div class="col-xs-5">
-              <input type="text" class="form-control" placeholder="New header value"
-                formControlName="newHeaderValue">
-            </div>
-            <div class="col-xs-1">
-              <button type="button" class="btn btn-success"
-                (click)="addHeaderRow()">
-                +
-              </button>
-            </div>
-            <div class="col-xs-1">
-              <p></p>
-            </div>
-          </div>
-          <div class="col-sm-4">
-            <p></p>
-          </div>
+        <div class="col-xs-4">
+          <input type="text" class="form-control" placeholder="New header"
+            formControlName="newHeaderKey">
+        </div>
+        <div class="col-xs-4">
+          <input type="text" class="form-control" placeholder="New header value"
+            formControlName="newHeaderValue">
+        </div>
+        <div class="col-xs-2">
+          <button type="button" class="btn btn-success"
+            (click)="addHeaderRow()">
+            Add
+          </button>
         </div>
       </div>
     </form>
@@ -119,8 +90,7 @@ export class CoRequestFormComponent implements OnInit {
   @Input() method = 'GET';
   @Input() url = '';
   @Input() body = '{}';
-  @Input() headers = [];
-  @Output() request = new EventEmitter();
+  @Input() headers = {};
 
   // keep track of which headers are currently present
   public headersArr = [];
@@ -138,15 +108,22 @@ export class CoRequestFormComponent implements OnInit {
 
   // initialize only once, then the data in the component is considered local
   ngOnInit () {
-    let headersObj = this.headers.reduce((mem, curr) => {
-      mem[curr.key] = [curr.value]
+    // headersarr is used in the template to render list of header inputs
+    this.headersArr = Object.keys(this.headers).map(headerKey => {
+      return {
+        key: headerKey,
+        value: this.headers[headerKey]
+      }
+    })
+    let headersControlsObj = Object.keys(this.headers).reduce((mem, curr) => {
+      mem[curr] = [this.headers[curr]]
       return mem
     }, {})
     this.requestForm = this.formBuilder.group({
       'url': [this.url],
       'method': [this.method],
       'body': [this.body],
-      'headers': this.formBuilder.group(headersObj)
+      'headers': this.formBuilder.group(headersControlsObj)
     })
 
     this.newHeaderForm = this.formBuilder.group({
@@ -165,7 +142,7 @@ export class CoRequestFormComponent implements OnInit {
     let headerControl = new FormControl(newHeaderValueControl.value)
 
     // Keep the headers arr up to date for the template rendering
-    this.headers.push({
+    this.headersArr.push({
       key: newHeaderKeyControl.value,
       value: newHeaderValueControl.value
     })
@@ -181,23 +158,20 @@ export class CoRequestFormComponent implements OnInit {
     // Remove from form
     this.requestForm.controls.headers.removeControl(headerToRemove.key)
     // Remove from header array
-    this.headers = this.headers.filter(header => header.key !== headerToRemove.key)
+    this.headersArr = this.headersArr.filter(header => header.key !== headerToRemove.key)
   }
 
-  private onSubmit () {
+  public request () {
     // go through the headers and get their values
     let headers = Object.keys(this.requestForm.controls.headers.controls).reduce((mem, curr) => {
-      mem.push({
-        key: curr,
-        value: this.requestForm.controls.headers.controls[curr].value
-      })
+      mem[curr] = this.requestForm.controls.headers.controls[curr].value
       return mem
-    }, [])
-    this.request.emit({
+    }, {})
+    return {
       url: this.requestForm.controls.url.value,
       body: this.requestForm.controls.body.value,
       method: this.requestForm.controls.method.value,
       headers: headers
-    })
+    }
   }
 }

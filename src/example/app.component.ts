@@ -1,4 +1,4 @@
-import {Component} from '@angular/core'
+import {Component, ViewChild} from '@angular/core'
 import {CoRequestFormComponent} from '../co-request-form.component'
 import {ExampleApiService} from './example-api.service'
 import {HTTP_PROVIDERS} from '@angular/http'
@@ -17,28 +17,26 @@ import {HTTP_PROVIDERS} from '@angular/http'
         [url]="'http://someurl'"
         [method]="'GET'"
         [body]="'{}'"
-        [headers]="preconfiguredHeaders"
-        (request)="makeRequest($event)">
+        [headers]="preconfiguredHeaders">
       </co-request-form-cmp>
+      <button class="btn btn-primary" (click)="makeRequest()">
+        Get request form values
+      </button>
     </div>
   `
 })
 export class AppCmp {
+  @ViewChild(CoRequestFormComponent) coRequestFormComponent: CoRequestFormComponent;
+
   constructor (private exampleApiService: ExampleApiService) {}
 
-  public makeRequest (config) {
-    console.log('Emitted from component: ', config)
-    this.exampleApiService.request(config)
+  public makeRequest () {
+    console.log(this.coRequestFormComponent.request())
+    // this.exampleApiService.request()
   }
 
-  public preconfiguredHeaders = [
-    {
-      key: 'Content-Type',
-      value: 'application/json'
-    },
-    {
-      key: 'Accept',
-      value: 'application/json;charset=UTF-8'
-    }
-  ]
+  public preconfiguredHeaders = {
+    'Content-Type': 'application/json',
+    'Accept': 'application/json;charset=UTF-8'
+  }
 }

@@ -15,21 +15,19 @@ var http_1 = require('@angular/http');
 var AppCmp = (function () {
     function AppCmp(exampleApiService) {
         this.exampleApiService = exampleApiService;
-        this.preconfiguredHeaders = [
-            {
-                key: 'Content-Type',
-                value: 'application/json'
-            },
-            {
-                key: 'Accept',
-                value: 'application/json;charset=UTF-8'
-            }
-        ];
+        this.preconfiguredHeaders = {
+            'Content-Type': 'application/json',
+            'Accept': 'application/json;charset=UTF-8'
+        };
     }
-    AppCmp.prototype.makeRequest = function (config) {
-        console.log('Emitted from component: ', config);
-        this.exampleApiService.request(config);
+    AppCmp.prototype.makeRequest = function () {
+        console.log(this.coRequestFormComponent.request());
+        // this.exampleApiService.request()
     };
+    __decorate([
+        core_1.ViewChild(co_request_form_component_1.CoRequestFormComponent), 
+        __metadata('design:type', co_request_form_component_1.CoRequestFormComponent)
+    ], AppCmp.prototype, "coRequestFormComponent", void 0);
     AppCmp = __decorate([
         core_1.Component({
             selector: 'app',
@@ -38,7 +36,7 @@ var AppCmp = (function () {
                 http_1.HTTP_PROVIDERS,
                 example_api_service_1.ExampleApiService
             ],
-            template: "\n    <div class='container'>\n      <h3>co-request-form-cmp</h3>\n      <co-request-form-cmp\n        [url]=\"'http://someurl'\"\n        [method]=\"'GET'\"\n        [body]=\"'{}'\"\n        [headers]=\"preconfiguredHeaders\"\n        (request)=\"makeRequest($event)\">\n      </co-request-form-cmp>\n    </div>\n  "
+            template: "\n    <div class='container'>\n      <h3>co-request-form-cmp</h3>\n      <co-request-form-cmp\n        [url]=\"'http://someurl'\"\n        [method]=\"'GET'\"\n        [body]=\"'{}'\"\n        [headers]=\"preconfiguredHeaders\">\n      </co-request-form-cmp>\n      <button class=\"btn btn-primary\" (click)=\"makeRequest()\">\n        Get request form values\n      </button>\n    </div>\n  "
         }), 
         __metadata('design:paramtypes', [example_api_service_1.ExampleApiService])
     ], AppCmp);
