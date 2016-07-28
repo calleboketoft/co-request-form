@@ -87,10 +87,45 @@ import {
   `
 })
 export class CoRequestFormComponent implements OnInit {
-  @Input() method = 'GET';
-  @Input() url = '';
-  @Input() body = '{}';
-  @Input() headers = {};
+
+  // Logics to handle externally updated values
+  @Input() set method (value) {
+    this.methodStr = value
+    if (!this.ngOnInitDone) return
+    this.requestForm.controls.method.updateValue(value)
+  };
+  @Input() set url (value) {
+    this.urlStr = value
+    if (!this.ngOnInitDone) return
+    this.requestForm.controls.url.updateValue(value)
+  };
+  @Input() set body (value) {
+    this.bodyStr = value
+    if (!this.ngOnInitDone) return
+    this.requestForm.controls.body.updateValue(value)
+  };
+  @Input() set headers (value) {
+    this.headersObj = value
+    if (!this.ngOnInitDone) return
+    // When new headers come in, remove the old controls
+    this.headersArr.forEach(headerKey => {
+      this.requestForm.controls.headers.removeControl(headerKey)
+    })
+
+    // headersarr is used in the template to render list of header inputs
+    this.headersArr = Object.keys(value)
+
+    // Add all the new header controls
+    Object.keys(value).forEach(headerKey => {
+      var headerControl = new FormControl(value[headerKey])
+      this.requestForm.controls.headers.addControl(headerKey, headerControl)
+    })
+  };
+
+  public methodStr = 'GET';
+  public urlStr = '';
+  public bodyStr = '{}';
+  public headersObj = {};
 
   // keep track of which headers are currently present
   public headersArr = [];
@@ -106,21 +141,24 @@ export class CoRequestFormComponent implements OnInit {
 
   constructor (public formBuilder: FormBuilder) {}
 
+  public ngOnInitDone = false
   ngOnInit () {
+    this.ngOnInitDone = true
     this.initializeForm()
   }
 
   public initializeForm () {
+
     // headersarr is used in the template to render list of header inputs
-    this.headersArr = Object.keys(this.headers).map(headerKey => headerKey)
-    let headersControlsObj = Object.keys(this.headers).reduce((mem, curr) => {
-      mem[curr] = [this.headers[curr]]
+    this.headersArr = Object.keys(this.headersObj).map(headerKey => headerKey)
+    let headersControlsObj = Object.keys(this.headersObj).reduce((mem, curr) => {
+      mem[curr] = [this.headersObj[curr]]
       return mem
     }, {})
     this.requestForm = this.formBuilder.group({
-      'url': [this.url],
-      'method': [this.method],
-      'body': [this.body],
+      'url': [this.urlStr],
+      'method': [this.methodStr],
+      'body': [this.bodyStr],
       'headers': this.formBuilder.group(headersControlsObj)
     })
 

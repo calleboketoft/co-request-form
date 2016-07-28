@@ -13,10 +13,10 @@ var forms_1 = require('@angular/forms');
 var CoRequestFormComponent = (function () {
     function CoRequestFormComponent(formBuilder) {
         this.formBuilder = formBuilder;
-        this.method = 'GET';
-        this.url = '';
-        this.body = '{}';
-        this.headers = {};
+        this.methodStr = 'GET';
+        this.urlStr = '';
+        this.bodyStr = '{}';
+        this.headersObj = {};
         // keep track of which headers are currently present
         this.headersArr = [];
         this.methodOptions = [
@@ -25,22 +25,80 @@ var CoRequestFormComponent = (function () {
             'PUT',
             'DELETE'
         ];
+        this.ngOnInitDone = false;
     }
+    Object.defineProperty(CoRequestFormComponent.prototype, "method", {
+        // Logics to handle externally updated values
+        set: function (value) {
+            this.methodStr = value;
+            if (!this.ngOnInitDone)
+                return;
+            this.requestForm.controls.method.updateValue(value);
+        },
+        enumerable: true,
+        configurable: true
+    });
+    ;
+    Object.defineProperty(CoRequestFormComponent.prototype, "url", {
+        set: function (value) {
+            this.urlStr = value;
+            if (!this.ngOnInitDone)
+                return;
+            this.requestForm.controls.url.updateValue(value);
+        },
+        enumerable: true,
+        configurable: true
+    });
+    ;
+    Object.defineProperty(CoRequestFormComponent.prototype, "body", {
+        set: function (value) {
+            this.bodyStr = value;
+            if (!this.ngOnInitDone)
+                return;
+            this.requestForm.controls.body.updateValue(value);
+        },
+        enumerable: true,
+        configurable: true
+    });
+    ;
+    Object.defineProperty(CoRequestFormComponent.prototype, "headers", {
+        set: function (value) {
+            var _this = this;
+            this.headersObj = value;
+            if (!this.ngOnInitDone)
+                return;
+            // When new headers come in, remove the old controls
+            this.headersArr.forEach(function (headerKey) {
+                _this.requestForm.controls.headers.removeControl(headerKey);
+            });
+            // headersarr is used in the template to render list of header inputs
+            this.headersArr = Object.keys(value);
+            // Add all the new header controls
+            Object.keys(value).forEach(function (headerKey) {
+                var headerControl = new forms_1.FormControl(value[headerKey]);
+                _this.requestForm.controls.headers.addControl(headerKey, headerControl);
+            });
+        },
+        enumerable: true,
+        configurable: true
+    });
+    ;
     CoRequestFormComponent.prototype.ngOnInit = function () {
+        this.ngOnInitDone = true;
         this.initializeForm();
     };
     CoRequestFormComponent.prototype.initializeForm = function () {
         var _this = this;
         // headersarr is used in the template to render list of header inputs
-        this.headersArr = Object.keys(this.headers).map(function (headerKey) { return headerKey; });
-        var headersControlsObj = Object.keys(this.headers).reduce(function (mem, curr) {
-            mem[curr] = [_this.headers[curr]];
+        this.headersArr = Object.keys(this.headersObj).map(function (headerKey) { return headerKey; });
+        var headersControlsObj = Object.keys(this.headersObj).reduce(function (mem, curr) {
+            mem[curr] = [_this.headersObj[curr]];
             return mem;
         }, {});
         this.requestForm = this.formBuilder.group({
-            'url': [this.url],
-            'method': [this.method],
-            'body': [this.body],
+            'url': [this.urlStr],
+            'method': [this.methodStr],
+            'body': [this.bodyStr],
             'headers': this.formBuilder.group(headersControlsObj)
         });
         this.newHeaderForm = this.formBuilder.group({
@@ -84,20 +142,24 @@ var CoRequestFormComponent = (function () {
     };
     __decorate([
         core_1.Input(), 
-        __metadata('design:type', Object)
-    ], CoRequestFormComponent.prototype, "method", void 0);
+        __metadata('design:type', Object), 
+        __metadata('design:paramtypes', [Object])
+    ], CoRequestFormComponent.prototype, "method", null);
     __decorate([
         core_1.Input(), 
-        __metadata('design:type', Object)
-    ], CoRequestFormComponent.prototype, "url", void 0);
+        __metadata('design:type', Object), 
+        __metadata('design:paramtypes', [Object])
+    ], CoRequestFormComponent.prototype, "url", null);
     __decorate([
         core_1.Input(), 
-        __metadata('design:type', Object)
-    ], CoRequestFormComponent.prototype, "body", void 0);
+        __metadata('design:type', Object), 
+        __metadata('design:paramtypes', [Object])
+    ], CoRequestFormComponent.prototype, "body", null);
     __decorate([
         core_1.Input(), 
-        __metadata('design:type', Object)
-    ], CoRequestFormComponent.prototype, "headers", void 0);
+        __metadata('design:type', Object), 
+        __metadata('design:paramtypes', [Object])
+    ], CoRequestFormComponent.prototype, "headers", null);
     CoRequestFormComponent = __decorate([
         core_1.Component({
             selector: 'co-request-form-cmp',
