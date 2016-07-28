@@ -79,7 +79,7 @@ import {
         <div class="col-xs-2">
           <button type="button" class="btn btn-success"
             (click)="addHeaderRow()">
-            Add
+            Add header
           </button>
         </div>
       </div>
