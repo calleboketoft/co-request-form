@@ -56,7 +56,7 @@ import {
         <div class="col-xs-4">
           <input type="text" class="form-control" [formControlName]="headerKey">
         </div>
-        <div class="col-xs-2">
+        <div class="col-xs-4" style="text-align: right;">
           <button type="button" class="btn btn-danger"
             (click)="removeHeaderRow(headerKey)">
             Remove
@@ -76,8 +76,8 @@ import {
           <input type="text" class="form-control" placeholder="New header value"
             formControlName="newHeaderValue">
         </div>
-        <div class="col-xs-2">
-          <button type="button" class="btn btn-success"
+        <div class="col-xs-4" style="text-align: right;">
+          <button type="button" class="btn btn-primary"
             (click)="addHeaderRow()">
             Add header
           </button>
