@@ -57,9 +57,10 @@ import {
           <input type="text" class="form-control" [formControlName]="headerKey">
         </div>
         <div class="col-xs-4" style="text-align: right;">
-          <button type="button" class="btn btn-danger"
+          <button type="button" class="btn btn-outline-danger"
+            style="width: 110px;"
             (click)="removeHeaderRow(headerKey)">
-            Remove
+            - Remove
           </button>
         </div>
       </div>
@@ -69,17 +70,18 @@ import {
     <form [formGroup]="newHeaderForm">
       <div class="row">
         <div class="col-xs-4">
-          <input type="text" class="form-control" placeholder="New header"
+          <input type="text" class="form-control" placeholder="Header key"
             formControlName="newHeaderKey">
         </div>
         <div class="col-xs-4">
-          <input type="text" class="form-control" placeholder="New header value"
+          <input type="text" class="form-control" placeholder="Header value"
             formControlName="newHeaderValue">
         </div>
         <div class="col-xs-4" style="text-align: right;">
-          <button type="button" class="btn btn-primary"
+          <button type="button" class="btn btn-outline-success"
+            style="width: 110px;"
             (click)="addHeaderRow()">
-            Add header
+            + Add
           </button>
         </div>
       </div>
