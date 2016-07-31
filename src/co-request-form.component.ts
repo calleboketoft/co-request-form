@@ -73,11 +73,7 @@ import {
           <input type="text" class="form-control" placeholder="Header"
             formControlName="newHeaderKey">
         </div>
-        <div class="col-xs-4">
-          <label class="form-control-label text-muted">
-            <em>Set value after adding</em>
-          </label>
-        </div>
+        <div class="col-xs-4"></div>
         <div class="col-xs-4" style="text-align: right;">
           <button type="button" class="btn btn-outline-success"
             style="width: 110px;"
