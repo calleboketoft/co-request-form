@@ -70,12 +70,13 @@ import {
     <form [formGroup]="newHeaderForm">
       <div class="row">
         <div class="col-xs-4">
-          <input type="text" class="form-control" placeholder="Header key"
+          <input type="text" class="form-control" placeholder="Header"
             formControlName="newHeaderKey">
         </div>
         <div class="col-xs-4">
-          <input type="text" class="form-control" placeholder="Header value"
-            formControlName="newHeaderValue">
+          <label class="form-control-label text-muted">
+            <em>Set value after adding</em>
+          </label>
         </div>
         <div class="col-xs-4" style="text-align: right;">
           <button type="button" class="btn btn-outline-success"
@@ -171,22 +172,23 @@ export class CoRequestFormComponent implements OnInit {
   }
 
   public addHeaderRow () {
-    // TODO check if the specific header already exists, if it does,
-    // just update its value instead of creating new
     let newHeaderKeyControl = this.newHeaderForm.controls.newHeaderKey
-    let newHeaderValueControl = this.newHeaderForm.controls.newHeaderValue
+    let headerControlName = newHeaderKeyControl.value
 
-    let headerControlKey = newHeaderKeyControl.value
-    let headerControl = new FormControl(newHeaderValueControl.value)
+    // If header already exists, return
+    let headerControls = Object.keys(this.requestForm.controls.headers.controls)
+    if (headerControls.indexOf(headerControlName) !== -1) {
+      alert('Header already exists')
+      return
+    }
 
     // Keep the headers arr up to date for the template rendering
     this.headersArr.push(newHeaderKeyControl.value)
 
-    this.requestForm.controls.headers.addControl(headerControlKey, headerControl)
+    this.requestForm.controls.headers.addControl(headerControlName, new FormControl(''))
 
-    // clear inputs in form
+    // clear input in form
     newHeaderKeyControl.updateValue('')
-    newHeaderValueControl.updateValue('')
   }
 
   public removeHeaderRow (headerToRemove) {

@@ -13,6 +13,7 @@ import {CoRequestFormComponent} from '../co-request-form.component'
         [body]="'{}'"
         [headers]="preconfiguredHeaders">
       </co-request-form-cmp>
+      <br >
       <button class="btn btn-primary" (click)="getRequestValues()">
         Get request form values
       </button>
