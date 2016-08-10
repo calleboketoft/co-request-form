@@ -1,9 +1,11 @@
-import {Component, ViewChild} from '@angular/core'
-import {CoRequestFormComponent} from '../co-request-form.component'
+import { Component, ViewChild } from '@angular/core'
+import { CoRequestFormComponent } from '../co-request-form.component'
+import { provideForms, disableDeprecatedForms } from '@angular/forms'
 
 @Component({
   selector: 'app',
   directives: [CoRequestFormComponent],
+  providers: [provideForms(), disableDeprecatedForms()],
   template: `
     <div class='container'>
       <h3>co-request-form-cmp</h3>
@@ -20,10 +22,10 @@ import {CoRequestFormComponent} from '../co-request-form.component'
     </div>
   `
 })
-export class AppCmp {
+export class AppComponent {
   @ViewChild(CoRequestFormComponent) coRequestFormComponent: CoRequestFormComponent;
 
-  public getRequestValues () {
+  public getRequestValues() {
     console.log(this.coRequestFormComponent.request())
   }
 
