@@ -10,7 +10,6 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 };
 var core_1 = require('@angular/core');
 var co_request_form_component_1 = require('../co-request-form.component');
-var forms_1 = require('@angular/forms');
 var AppComponent = (function () {
     function AppComponent() {
         this.preconfiguredHeaders = {
@@ -28,8 +27,6 @@ var AppComponent = (function () {
     AppComponent = __decorate([
         core_1.Component({
             selector: 'app',
-            directives: [co_request_form_component_1.CoRequestFormComponent],
-            providers: [forms_1.provideForms(), forms_1.disableDeprecatedForms()],
             template: "\n    <div class='container'>\n      <h3>co-request-form-cmp</h3>\n      <co-request-form-cmp\n        [url]=\"'http://someurl'\"\n        [method]=\"'GET'\"\n        [body]=\"'{}'\"\n        [headers]=\"preconfiguredHeaders\">\n      </co-request-form-cmp>\n      <br >\n      <button class=\"btn btn-primary\" (click)=\"getRequestValues()\">\n        Get request form values\n      </button>\n    </div>\n  "
         }), 
         __metadata('design:paramtypes', [])

@@ -11,14 +11,20 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 var core_1 = require('@angular/core');
 var platform_browser_1 = require('@angular/platform-browser');
 var app_component_1 = require('./app.component');
+var forms_1 = require('@angular/forms');
+var co_request_form_component_1 = require('../co-request-form.component');
 var AppModule = (function () {
     function AppModule() {
     }
     AppModule = __decorate([
         core_1.NgModule({
             declarations: [app_component_1.AppComponent],
-            imports: [platform_browser_1.BrowserModule],
+            imports: [
+                platform_browser_1.BrowserModule,
+                forms_1.ReactiveFormsModule
+            ],
             bootstrap: [app_component_1.AppComponent],
+            providers: [co_request_form_component_1.CoRequestFormComponent]
         }), 
         __metadata('design:paramtypes', [])
     ], AppModule);

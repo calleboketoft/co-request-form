@@ -1,11 +1,8 @@
 import { Component, ViewChild } from '@angular/core'
 import { CoRequestFormComponent } from '../co-request-form.component'
-import { provideForms, disableDeprecatedForms } from '@angular/forms'
 
 @Component({
   selector: 'app',
-  directives: [CoRequestFormComponent],
-  providers: [provideForms(), disableDeprecatedForms()],
   template: `
     <div class='container'>
       <h3>co-request-form-cmp</h3>
