@@ -9,7 +9,7 @@ var __metadata = (this && this.__metadata) || function (k, v) {
     if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
 var core_1 = require('@angular/core');
-var request_form_1 = require('../../request-form');
+var _1 = require('../../');
 var AppComponent = (function () {
     function AppComponent() {
         this.preconfiguredHeaders = {
@@ -21,8 +21,8 @@ var AppComponent = (function () {
         console.log(this.requestFormComponent.request());
     };
     __decorate([
-        core_1.ViewChild(request_form_1.RequestFormComponent), 
-        __metadata('design:type', request_form_1.RequestFormComponent)
+        core_1.ViewChild(_1.RequestFormComponent), 
+        __metadata('design:type', _1.RequestFormComponent)
     ], AppComponent.prototype, "requestFormComponent", void 0);
     AppComponent = __decorate([
         core_1.Component({

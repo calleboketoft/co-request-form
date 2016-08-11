@@ -1,5 +1,5 @@
 import { Component, ViewChild } from '@angular/core'
-import { RequestFormComponent } from '../../request-form'
+import { RequestFormComponent } from '../../'
 
 @Component({
   selector: 'app',
