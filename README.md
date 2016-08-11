@@ -1,3 +1,3 @@
 ## co-request-form
 
-OBSOLETE
+See example for usage instructions
