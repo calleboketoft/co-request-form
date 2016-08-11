@@ -8,7 +8,7 @@ import {
 import { FormBuilder, FormControl } from '@angular/forms'
 
 @Component({
-  selector: 'ng2-request-form',
+  selector: 'request-form',
   template: `
     <form [formGroup]="requestForm">
       <div class="row">
@@ -80,7 +80,7 @@ import { FormBuilder, FormControl } from '@angular/forms'
     </form>
   `
 })
-export class Ng2RequestFormComponent implements OnInit {
+export class RequestFormComponent implements OnInit {
 
   // Logics to handle externally updated values
   @Input() set method (value) {

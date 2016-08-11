@@ -1,11 +1,11 @@
 import { Component, ViewChild } from '@angular/core'
-import { Ng2RequestFormComponent } from '../../ng2-request-form'
+import { RequestFormComponent } from '../../request-form'
 
 @Component({
   selector: 'app',
   template: `
     <div class='container'>
-      <h3>ng2-request-form</h3>
+      <h3>Angular 2 request-form</h3>
       <ng2-request-form
         [url]="'http://someurl'"
         [method]="'GET'"
@@ -20,10 +20,10 @@ import { Ng2RequestFormComponent } from '../../ng2-request-form'
   `
 })
 export class AppComponent {
-  @ViewChild(Ng2RequestFormComponent) ng2RequestFormComponent: Ng2RequestFormComponent;
+  @ViewChild(RequestFormComponent) requestFormComponent: RequestFormComponent;
 
   public getRequestValues() {
-    console.log(this.ng2RequestFormComponent.request())
+    console.log(this.requestFormComponent.request())
   }
 
   public preconfiguredHeaders = {
