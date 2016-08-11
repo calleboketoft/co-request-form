@@ -6,12 +6,12 @@ import { RequestFormComponent } from '../../request-form'
   template: `
     <div class='container'>
       <h3>Angular 2 request-form</h3>
-      <ng2-request-form
+      <request-form
         [url]="'http://someurl'"
         [method]="'GET'"
         [body]="'{}'"
         [headers]="preconfiguredHeaders">
-      </ng2-request-form>
+      </request-form>
       <br >
       <button class="btn btn-primary" (click)="getRequestValues()">
         Get request form values
