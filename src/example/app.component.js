@@ -9,7 +9,7 @@ var __metadata = (this && this.__metadata) || function (k, v) {
     if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
 var core_1 = require('@angular/core');
-var ng2_request_form_1 = require('../../ng2-request-form');
+var request_form_1 = require('../../request-form');
 var AppComponent = (function () {
     function AppComponent() {
         this.preconfiguredHeaders = {
@@ -18,16 +18,16 @@ var AppComponent = (function () {
         };
     }
     AppComponent.prototype.getRequestValues = function () {
-        console.log(this.ng2RequestFormComponent.request());
+        console.log(this.requestFormComponent.request());
     };
     __decorate([
-        core_1.ViewChild(ng2_request_form_1.Ng2RequestFormComponent), 
-        __metadata('design:type', ng2_request_form_1.Ng2RequestFormComponent)
-    ], AppComponent.prototype, "ng2RequestFormComponent", void 0);
+        core_1.ViewChild(request_form_1.RequestFormComponent), 
+        __metadata('design:type', request_form_1.RequestFormComponent)
+    ], AppComponent.prototype, "requestFormComponent", void 0);
     AppComponent = __decorate([
         core_1.Component({
             selector: 'app',
-            template: "\n    <div class='container'>\n      <h3>ng2-request-form</h3>\n      <ng2-request-form\n        [url]=\"'http://someurl'\"\n        [method]=\"'GET'\"\n        [body]=\"'{}'\"\n        [headers]=\"preconfiguredHeaders\">\n      </ng2-request-form>\n      <br >\n      <button class=\"btn btn-primary\" (click)=\"getRequestValues()\">\n        Get request form values\n      </button>\n    </div>\n  "
+            template: "\n    <div class='container'>\n      <h3>Angular 2 request-form</h3>\n      <ng2-request-form\n        [url]=\"'http://someurl'\"\n        [method]=\"'GET'\"\n        [body]=\"'{}'\"\n        [headers]=\"preconfiguredHeaders\">\n      </ng2-request-form>\n      <br >\n      <button class=\"btn btn-primary\" (click)=\"getRequestValues()\">\n        Get request form values\n      </button>\n    </div>\n  "
         }), 
         __metadata('design:paramtypes', [])
     ], AppComponent);

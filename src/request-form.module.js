@@ -10,20 +10,20 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 };
 var core_1 = require('@angular/core');
 var platform_browser_1 = require('@angular/platform-browser');
-var app_component_1 = require('./app.component');
-var request_form_module_1 = require('../request-form.module');
-var AppModule = (function () {
-    function AppModule() {
+var forms_1 = require('@angular/forms');
+var request_form_component_1 = require('./request-form.component');
+var RequestFormModule = (function () {
+    function RequestFormModule() {
     }
-    AppModule = __decorate([
+    RequestFormModule = __decorate([
         core_1.NgModule({
-            declarations: [app_component_1.AppComponent],
-            imports: [platform_browser_1.BrowserModule, request_form_module_1.RequestFormModule],
-            bootstrap: [app_component_1.AppComponent]
+            imports: [platform_browser_1.BrowserModule, forms_1.ReactiveFormsModule],
+            declarations: [request_form_component_1.RequestFormComponent],
+            exports: [request_form_component_1.RequestFormComponent]
         }), 
         __metadata('design:paramtypes', [])
-    ], AppModule);
-    return AppModule;
+    ], RequestFormModule);
+    return RequestFormModule;
 }());
-exports.AppModule = AppModule;
-//# sourceMappingURL=app.module.js.map
+exports.RequestFormModule = RequestFormModule;
+//# sourceMappingURL=request-form.module.js.map
