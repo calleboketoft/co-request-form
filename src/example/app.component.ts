@@ -1,17 +1,17 @@
 import { Component, ViewChild } from '@angular/core'
-import { CoRequestFormComponent } from '../co-request-form.component'
+import { Ng2RequestFormComponent } from '../../ng2-request-form'
 
 @Component({
   selector: 'app',
   template: `
     <div class='container'>
-      <h3>co-request-form-cmp</h3>
-      <co-request-form-cmp
+      <h3>ng2-request-form</h3>
+      <ng2-request-form
         [url]="'http://someurl'"
         [method]="'GET'"
         [body]="'{}'"
         [headers]="preconfiguredHeaders">
-      </co-request-form-cmp>
+      </ng2-request-form>
       <br >
       <button class="btn btn-primary" (click)="getRequestValues()">
         Get request form values
@@ -20,10 +20,10 @@ import { CoRequestFormComponent } from '../co-request-form.component'
   `
 })
 export class AppComponent {
-  @ViewChild(CoRequestFormComponent) coRequestFormComponent: CoRequestFormComponent;
+  @ViewChild(Ng2RequestFormComponent) ng2RequestFormComponent: Ng2RequestFormComponent;
 
   public getRequestValues() {
-    console.log(this.coRequestFormComponent.request())
+    console.log(this.ng2RequestFormComponent.request())
   }
 
   public preconfiguredHeaders = {

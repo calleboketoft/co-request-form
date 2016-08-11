@@ -10,20 +10,20 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 };
 var core_1 = require('@angular/core');
 var platform_browser_1 = require('@angular/platform-browser');
-var app_component_1 = require('./app.component');
-var ng2_request_form_module_1 = require('../ng2-request-form.module');
-var AppModule = (function () {
-    function AppModule() {
+var forms_1 = require('@angular/forms');
+var ng2_request_form_component_1 = require('./ng2-request-form.component');
+var Ng2RequestFormModule = (function () {
+    function Ng2RequestFormModule() {
     }
-    AppModule = __decorate([
+    Ng2RequestFormModule = __decorate([
         core_1.NgModule({
-            declarations: [app_component_1.AppComponent],
-            imports: [platform_browser_1.BrowserModule, ng2_request_form_module_1.Ng2RequestFormModule],
-            bootstrap: [app_component_1.AppComponent]
+            imports: [platform_browser_1.BrowserModule, forms_1.ReactiveFormsModule],
+            declarations: [ng2_request_form_component_1.Ng2RequestFormComponent],
+            exports: [ng2_request_form_component_1.Ng2RequestFormComponent]
         }), 
         __metadata('design:paramtypes', [])
-    ], AppModule);
-    return AppModule;
+    ], Ng2RequestFormModule);
+    return Ng2RequestFormModule;
 }());
-exports.AppModule = AppModule;
-//# sourceMappingURL=app.module.js.map
+exports.Ng2RequestFormModule = Ng2RequestFormModule;
+//# sourceMappingURL=ng2-request-form.module.js.map

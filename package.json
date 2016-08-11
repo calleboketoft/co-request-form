@@ -1,7 +1,7 @@
 {
-  "name": "co-request-form",
-  "version": "2.1.1",
-  "description": "",
+  "name": "ng2-request-form",
+  "version": "2.1.2",
+  "description": "Basic http request form component",
   "main": "index.js",
   "scripts": {
     "start": "node server",
@@ -18,7 +18,7 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/calleboketoft/co-request-form.git"
+    "url": "git+https://github.com/calleboketoft/ng2-request-form.git"
   },
   "keywords": [
     "angular2"
@@ -26,9 +26,9 @@
   "author": "Carl-Ola Boketoft",
   "license": "ISC",
   "bugs": {
-    "url": "https://github.com/calleboketoft/co-request-form/issues"
+    "url": "https://github.com/calleboketoft/ng2-request-form/issues"
   },
-  "homepage": "https://github.com/calleboketoft/co-request-form#readme",
+  "homepage": "https://github.com/calleboketoft/ng2-request-form#readme",
   "peerDependencies": {
     "@angular/core": "^2.0.0-rc.5",
     "@angular/forms": "^0.3.0"

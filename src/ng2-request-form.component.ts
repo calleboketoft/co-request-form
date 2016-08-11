@@ -5,15 +5,10 @@ import {
   EventEmitter,
   OnInit
 } from '@angular/core'
-import {
-  FormBuilder,
-  REACTIVE_FORM_DIRECTIVES,
-  FormControl
-} from '@angular/forms'
+import { FormBuilder, FormControl } from '@angular/forms'
 
 @Component({
-  selector: 'co-request-form-cmp',
-  directives: [REACTIVE_FORM_DIRECTIVES],
+  selector: 'ng2-request-form',
   template: `
     <form [formGroup]="requestForm">
       <div class="row">
@@ -85,7 +80,7 @@ import {
     </form>
   `
 })
-export class CoRequestFormComponent implements OnInit {
+export class Ng2RequestFormComponent implements OnInit {
 
   // Logics to handle externally updated values
   @Input() set method (value) {

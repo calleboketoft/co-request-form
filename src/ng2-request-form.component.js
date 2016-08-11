@@ -10,8 +10,8 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 };
 var core_1 = require('@angular/core');
 var forms_1 = require('@angular/forms');
-var CoRequestFormComponent = (function () {
-    function CoRequestFormComponent(formBuilder) {
+var Ng2RequestFormComponent = (function () {
+    function Ng2RequestFormComponent(formBuilder) {
         this.formBuilder = formBuilder;
         this.methodStr = 'GET';
         this.urlStr = '';
@@ -27,7 +27,7 @@ var CoRequestFormComponent = (function () {
         ];
         this.ngOnInitDone = false;
     }
-    Object.defineProperty(CoRequestFormComponent.prototype, "method", {
+    Object.defineProperty(Ng2RequestFormComponent.prototype, "method", {
         // Logics to handle externally updated values
         set: function (value) {
             this.methodStr = value;
@@ -39,7 +39,7 @@ var CoRequestFormComponent = (function () {
         configurable: true
     });
     ;
-    Object.defineProperty(CoRequestFormComponent.prototype, "url", {
+    Object.defineProperty(Ng2RequestFormComponent.prototype, "url", {
         set: function (value) {
             this.urlStr = value;
             if (!this.ngOnInitDone)
@@ -50,7 +50,7 @@ var CoRequestFormComponent = (function () {
         configurable: true
     });
     ;
-    Object.defineProperty(CoRequestFormComponent.prototype, "body", {
+    Object.defineProperty(Ng2RequestFormComponent.prototype, "body", {
         set: function (value) {
             this.bodyStr = value;
             if (!this.ngOnInitDone)
@@ -61,7 +61,7 @@ var CoRequestFormComponent = (function () {
         configurable: true
     });
     ;
-    Object.defineProperty(CoRequestFormComponent.prototype, "headers", {
+    Object.defineProperty(Ng2RequestFormComponent.prototype, "headers", {
         set: function (value) {
             var _this = this;
             this.headersObj = value;
@@ -83,11 +83,11 @@ var CoRequestFormComponent = (function () {
         configurable: true
     });
     ;
-    CoRequestFormComponent.prototype.ngOnInit = function () {
+    Ng2RequestFormComponent.prototype.ngOnInit = function () {
         this.ngOnInitDone = true;
         this.initializeForm();
     };
-    CoRequestFormComponent.prototype.initializeForm = function () {
+    Ng2RequestFormComponent.prototype.initializeForm = function () {
         var _this = this;
         // headersarr is used in the template to render list of header inputs
         this.headersArr = Object.keys(this.headersObj).map(function (headerKey) { return headerKey; });
@@ -106,7 +106,7 @@ var CoRequestFormComponent = (function () {
             'newHeaderValue': ['']
         });
     };
-    CoRequestFormComponent.prototype.addHeaderRow = function () {
+    Ng2RequestFormComponent.prototype.addHeaderRow = function () {
         var newHeaderKeyControl = this.newHeaderForm.controls.newHeaderKey;
         var headerControlName = newHeaderKeyControl.value;
         // If header already exists, return
@@ -121,13 +121,13 @@ var CoRequestFormComponent = (function () {
         // clear input in form
         newHeaderKeyControl.updateValue('');
     };
-    CoRequestFormComponent.prototype.removeHeaderRow = function (headerToRemove) {
+    Ng2RequestFormComponent.prototype.removeHeaderRow = function (headerToRemove) {
         // Remove from form
         this.requestForm.controls.headers.removeControl(headerToRemove);
         // Remove from header array
         this.headersArr = this.headersArr.filter(function (headerKey) { return headerKey !== headerToRemove; });
     };
-    CoRequestFormComponent.prototype.request = function () {
+    Ng2RequestFormComponent.prototype.request = function () {
         var _this = this;
         // go through the headers and get their values
         var headers = Object.keys(this.requestForm.controls.headers.controls).reduce(function (mem, curr) {
@@ -145,31 +145,30 @@ var CoRequestFormComponent = (function () {
         core_1.Input(), 
         __metadata('design:type', Object), 
         __metadata('design:paramtypes', [Object])
-    ], CoRequestFormComponent.prototype, "method", null);
+    ], Ng2RequestFormComponent.prototype, "method", null);
     __decorate([
         core_1.Input(), 
         __metadata('design:type', Object), 
         __metadata('design:paramtypes', [Object])
-    ], CoRequestFormComponent.prototype, "url", null);
+    ], Ng2RequestFormComponent.prototype, "url", null);
     __decorate([
         core_1.Input(), 
         __metadata('design:type', Object), 
         __metadata('design:paramtypes', [Object])
-    ], CoRequestFormComponent.prototype, "body", null);
+    ], Ng2RequestFormComponent.prototype, "body", null);
     __decorate([
         core_1.Input(), 
         __metadata('design:type', Object), 
         __metadata('design:paramtypes', [Object])
-    ], CoRequestFormComponent.prototype, "headers", null);
-    CoRequestFormComponent = __decorate([
+    ], Ng2RequestFormComponent.prototype, "headers", null);
+    Ng2RequestFormComponent = __decorate([
         core_1.Component({
-            selector: 'co-request-form-cmp',
-            directives: [forms_1.REACTIVE_FORM_DIRECTIVES],
+            selector: 'ng2-request-form',
             template: "\n    <form [formGroup]=\"requestForm\">\n      <div class=\"row\">\n        <div class=\"col-sm-8\">\n          <fieldset class=\"form-group\">\n            <label>URL</label>\n            <input type=\"text\" class=\"form-control\" formControlName=\"url\">\n          </fieldset>\n        </div>\n        <div class=\"col-sm-4\">\n          <fieldset class=\"form-group\">\n            <label>Method</label>\n            <select class=\"form-control\" formControlName=\"method\" #method>\n              <option *ngFor=\"let option of methodOptions\"\n                [value]=\"option\">\n                {{option}}\n              </option>\n            </select>\n          </fieldset>\n        </div>\n      </div>\n\n      <div class=\"row\"\n        [hidden]=\"requestForm.controls.method.value !== 'POST' && requestForm.controls.method.value !== 'PUT'\">\n        <div class=\"col-sm-12\">\n          <fieldset class=\"form-group\">\n            <label>Body</label>\n            <textarea class=\"form-control\" formControlName=\"body\" rows=\"3\"></textarea>\n          </fieldset>\n        </div>\n      </div>\n\n      <label>Headers</label>\n\n      <div class=\"row\" style=\"margin-bottom: 5px;\" formGroupName=\"headers\"\n        *ngFor=\"let headerKey of headersArr\">\n        <div class=\"col-xs-4\">\n          <input type=\"text\" disabled [value]=\"headerKey\" class=\"form-control\">\n        </div>\n        <div class=\"col-xs-4\">\n          <input type=\"text\" class=\"form-control\" [formControlName]=\"headerKey\">\n        </div>\n        <div class=\"col-xs-4\" style=\"text-align: right;\">\n          <button type=\"button\" class=\"btn btn-outline-danger\"\n            style=\"width: 110px;\"\n            (click)=\"removeHeaderRow(headerKey)\">\n            - Remove\n          </button>\n        </div>\n      </div>\n    </form>\n\n    <!-- Add new header TODO make into form-->\n    <form [formGroup]=\"newHeaderForm\">\n      <div class=\"row\">\n        <div class=\"col-xs-4\">\n          <input type=\"text\" class=\"form-control\" placeholder=\"Header\"\n            formControlName=\"newHeaderKey\">\n        </div>\n        <div class=\"col-xs-4\"></div>\n        <div class=\"col-xs-4\" style=\"text-align: right;\">\n          <button type=\"button\" class=\"btn btn-outline-success\"\n            style=\"width: 110px;\"\n            (click)=\"addHeaderRow()\">\n            + Add\n          </button>\n        </div>\n      </div>\n    </form>\n  "
         }), 
         __metadata('design:paramtypes', [forms_1.FormBuilder])
-    ], CoRequestFormComponent);
-    return CoRequestFormComponent;
+    ], Ng2RequestFormComponent);
+    return Ng2RequestFormComponent;
 }());
-exports.CoRequestFormComponent = CoRequestFormComponent;
-//# sourceMappingURL=co-request-form.component.js.map
+exports.Ng2RequestFormComponent = Ng2RequestFormComponent;
+//# sourceMappingURL=ng2-request-form.component.js.map
