@@ -128,7 +128,10 @@ export class RequestFormComponent implements OnInit {
     'GET',
     'POST',
     'PUT',
-    'DELETE'
+    'DELETE',
+    'PATCH',
+    'OPTIONS',
+    'HEAD'
   ]
   public requestForm;
   public newHeaderForm;

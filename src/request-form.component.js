@@ -23,7 +23,10 @@ var RequestFormComponent = (function () {
             'GET',
             'POST',
             'PUT',
-            'DELETE'
+            'DELETE',
+            'PATCH',
+            'OPTIONS',
+            'HEAD'
         ];
         this.ngOnInitDone = false;
     }

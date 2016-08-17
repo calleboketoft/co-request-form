@@ -1,6 +1,6 @@
 {
   "name": "@calle/ng2-request-form",
-  "version": "2.1.5",
+  "version": "2.1.6",
   "description": "Basic http request form component",
   "main": "index.js",
   "scripts": {
