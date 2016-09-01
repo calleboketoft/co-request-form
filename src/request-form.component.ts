@@ -86,17 +86,17 @@ export class RequestFormComponent implements OnInit {
   @Input() set method (value) {
     this.methodStr = value
     if (!this.ngOnInitDone) return
-    this.requestForm.controls.method.updateValue(value)
+    this.requestForm.controls.method.setValue(value)
   };
   @Input() set url (value) {
     this.urlStr = value
     if (!this.ngOnInitDone) return
-    this.requestForm.controls.url.updateValue(value)
+    this.requestForm.controls.url.setValue(value)
   };
   @Input() set body (value) {
     this.bodyStr = value
     if (!this.ngOnInitDone) return
-    this.requestForm.controls.body.updateValue(value)
+    this.requestForm.controls.body.setValue(value)
   };
   @Input() set headers (value) {
     this.headersObj = value
@@ -182,7 +182,7 @@ export class RequestFormComponent implements OnInit {
     this.requestForm.controls.headers.addControl(headerControlName, new FormControl(''))
 
     // clear input in form
-    newHeaderKeyControl.updateValue('')
+    newHeaderKeyControl.setValue('')
   }
 
   public removeHeaderRow (headerToRemove) {

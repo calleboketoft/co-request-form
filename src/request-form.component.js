@@ -36,7 +36,7 @@ var RequestFormComponent = (function () {
             this.methodStr = value;
             if (!this.ngOnInitDone)
                 return;
-            this.requestForm.controls.method.updateValue(value);
+            this.requestForm.controls.method.setValue(value);
         },
         enumerable: true,
         configurable: true
@@ -47,7 +47,7 @@ var RequestFormComponent = (function () {
             this.urlStr = value;
             if (!this.ngOnInitDone)
                 return;
-            this.requestForm.controls.url.updateValue(value);
+            this.requestForm.controls.url.setValue(value);
         },
         enumerable: true,
         configurable: true
@@ -58,7 +58,7 @@ var RequestFormComponent = (function () {
             this.bodyStr = value;
             if (!this.ngOnInitDone)
                 return;
-            this.requestForm.controls.body.updateValue(value);
+            this.requestForm.controls.body.setValue(value);
         },
         enumerable: true,
         configurable: true
@@ -122,7 +122,7 @@ var RequestFormComponent = (function () {
         this.headersArr.push(newHeaderKeyControl.value);
         this.requestForm.controls.headers.addControl(headerControlName, new forms_1.FormControl(''));
         // clear input in form
-        newHeaderKeyControl.updateValue('');
+        newHeaderKeyControl.setValue('');
     };
     RequestFormComponent.prototype.removeHeaderRow = function (headerToRemove) {
         // Remove from form
