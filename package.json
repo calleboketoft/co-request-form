@@ -5,7 +5,7 @@
   "main": "index.js",
   "scripts": {
     "start": "node server",
-    "build": "tsc",
+    "build": "tsc && npm run sass",
     "watch": "tsc -w",
     "sass": "node-sass ./node_modules/bootstrap/scss/bootstrap.scss ./src/css/bootstrap.css"
   },
