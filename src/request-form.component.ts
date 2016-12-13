@@ -52,7 +52,7 @@ import { FormBuilder, FormControl } from '@angular/forms'
           <input type="text" class="form-control" [formControlName]="headerKey">
         </div>
         <div class="col-xs-4" style="text-align: right;">
-          <button type="button" class="btn btn-outline-danger"
+          <button type="button" class="btn btn-danger"
             style="width: 110px;"
             (click)="removeHeaderRow(headerKey)">
             - Remove
@@ -70,7 +70,7 @@ import { FormBuilder, FormControl } from '@angular/forms'
         </div>
         <div class="col-xs-4"></div>
         <div class="col-xs-4" style="text-align: right;">
-          <button type="button" class="btn btn-outline-success"
+          <button type="button" class="btn btn-success"
             style="width: 110px;"
             (click)="addHeaderRow()">
             + Add

@@ -8,22 +8,22 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
 var __metadata = (this && this.__metadata) || function (k, v) {
     if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
-var core_1 = require('@angular/core');
-var platform_browser_1 = require('@angular/platform-browser');
-var forms_1 = require('@angular/forms');
-var request_form_component_1 = require('./request-form.component');
+var core_1 = require("@angular/core");
+var platform_browser_1 = require("@angular/platform-browser");
+var forms_1 = require("@angular/forms");
+var request_form_component_1 = require("./request-form.component");
 var RequestFormModule = (function () {
     function RequestFormModule() {
     }
-    RequestFormModule = __decorate([
-        core_1.NgModule({
-            imports: [platform_browser_1.BrowserModule, forms_1.ReactiveFormsModule],
-            declarations: [request_form_component_1.RequestFormComponent],
-            exports: [request_form_component_1.RequestFormComponent]
-        }), 
-        __metadata('design:paramtypes', [])
-    ], RequestFormModule);
     return RequestFormModule;
 }());
+RequestFormModule = __decorate([
+    core_1.NgModule({
+        imports: [platform_browser_1.BrowserModule, forms_1.ReactiveFormsModule],
+        declarations: [request_form_component_1.RequestFormComponent],
+        exports: [request_form_component_1.RequestFormComponent]
+    }),
+    __metadata("design:paramtypes", [])
+], RequestFormModule);
 exports.RequestFormModule = RequestFormModule;
 //# sourceMappingURL=request-form.module.js.map

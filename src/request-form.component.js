@@ -8,8 +8,8 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
 var __metadata = (this && this.__metadata) || function (k, v) {
     if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
-var core_1 = require('@angular/core');
-var forms_1 = require('@angular/forms');
+var core_1 = require("@angular/core");
+var forms_1 = require("@angular/forms");
 var RequestFormComponent = (function () {
     function RequestFormComponent(formBuilder) {
         this.formBuilder = formBuilder;
@@ -144,34 +144,34 @@ var RequestFormComponent = (function () {
             headers: headers
         };
     };
-    __decorate([
-        core_1.Input(), 
-        __metadata('design:type', Object), 
-        __metadata('design:paramtypes', [Object])
-    ], RequestFormComponent.prototype, "method", null);
-    __decorate([
-        core_1.Input(), 
-        __metadata('design:type', Object), 
-        __metadata('design:paramtypes', [Object])
-    ], RequestFormComponent.prototype, "url", null);
-    __decorate([
-        core_1.Input(), 
-        __metadata('design:type', Object), 
-        __metadata('design:paramtypes', [Object])
-    ], RequestFormComponent.prototype, "body", null);
-    __decorate([
-        core_1.Input(), 
-        __metadata('design:type', Object), 
-        __metadata('design:paramtypes', [Object])
-    ], RequestFormComponent.prototype, "headers", null);
-    RequestFormComponent = __decorate([
-        core_1.Component({
-            selector: 'request-form',
-            template: "\n    <form [formGroup]=\"requestForm\">\n      <div class=\"row\">\n        <div class=\"col-sm-8\">\n          <fieldset class=\"form-group\">\n            <label>URL</label>\n            <input type=\"text\" class=\"form-control\" formControlName=\"url\">\n          </fieldset>\n        </div>\n        <div class=\"col-sm-4\">\n          <fieldset class=\"form-group\">\n            <label>Method</label>\n            <select class=\"form-control\" formControlName=\"method\" #method>\n              <option *ngFor=\"let option of methodOptions\"\n                [value]=\"option\">\n                {{option}}\n              </option>\n            </select>\n          </fieldset>\n        </div>\n      </div>\n\n      <div class=\"row\"\n        [hidden]=\"requestForm.controls.method.value !== 'POST' && requestForm.controls.method.value !== 'PUT'\">\n        <div class=\"col-sm-12\">\n          <fieldset class=\"form-group\">\n            <label>Body</label>\n            <textarea class=\"form-control\" formControlName=\"body\" rows=\"3\"></textarea>\n          </fieldset>\n        </div>\n      </div>\n\n      <label>Headers</label>\n\n      <div class=\"row\" style=\"margin-bottom: 5px;\" formGroupName=\"headers\"\n        *ngFor=\"let headerKey of headersArr\">\n        <div class=\"col-xs-4\">\n          <input type=\"text\" disabled [value]=\"headerKey\" class=\"form-control\">\n        </div>\n        <div class=\"col-xs-4\">\n          <input type=\"text\" class=\"form-control\" [formControlName]=\"headerKey\">\n        </div>\n        <div class=\"col-xs-4\" style=\"text-align: right;\">\n          <button type=\"button\" class=\"btn btn-outline-danger\"\n            style=\"width: 110px;\"\n            (click)=\"removeHeaderRow(headerKey)\">\n            - Remove\n          </button>\n        </div>\n      </div>\n    </form>\n\n    <!-- Add new header TODO make into form-->\n    <form [formGroup]=\"newHeaderForm\">\n      <div class=\"row\">\n        <div class=\"col-xs-4\">\n          <input type=\"text\" class=\"form-control\" placeholder=\"Header\"\n            formControlName=\"newHeaderKey\">\n        </div>\n        <div class=\"col-xs-4\"></div>\n        <div class=\"col-xs-4\" style=\"text-align: right;\">\n          <button type=\"button\" class=\"btn btn-outline-success\"\n            style=\"width: 110px;\"\n            (click)=\"addHeaderRow()\">\n            + Add\n          </button>\n        </div>\n      </div>\n    </form>\n  "
-        }), 
-        __metadata('design:paramtypes', [forms_1.FormBuilder])
-    ], RequestFormComponent);
     return RequestFormComponent;
 }());
+__decorate([
+    core_1.Input(),
+    __metadata("design:type", Object),
+    __metadata("design:paramtypes", [Object])
+], RequestFormComponent.prototype, "method", null);
+__decorate([
+    core_1.Input(),
+    __metadata("design:type", Object),
+    __metadata("design:paramtypes", [Object])
+], RequestFormComponent.prototype, "url", null);
+__decorate([
+    core_1.Input(),
+    __metadata("design:type", Object),
+    __metadata("design:paramtypes", [Object])
+], RequestFormComponent.prototype, "body", null);
+__decorate([
+    core_1.Input(),
+    __metadata("design:type", Object),
+    __metadata("design:paramtypes", [Object])
+], RequestFormComponent.prototype, "headers", null);
+RequestFormComponent = __decorate([
+    core_1.Component({
+        selector: 'request-form',
+        template: "\n    <form [formGroup]=\"requestForm\">\n      <div class=\"row\">\n        <div class=\"col-sm-8\">\n          <fieldset class=\"form-group\">\n            <label>URL</label>\n            <input type=\"text\" class=\"form-control\" formControlName=\"url\">\n          </fieldset>\n        </div>\n        <div class=\"col-sm-4\">\n          <fieldset class=\"form-group\">\n            <label>Method</label>\n            <select class=\"form-control\" formControlName=\"method\" #method>\n              <option *ngFor=\"let option of methodOptions\"\n                [value]=\"option\">\n                {{option}}\n              </option>\n            </select>\n          </fieldset>\n        </div>\n      </div>\n\n      <div class=\"row\"\n        [hidden]=\"requestForm.controls.method.value !== 'POST' && requestForm.controls.method.value !== 'PUT'\">\n        <div class=\"col-sm-12\">\n          <fieldset class=\"form-group\">\n            <label>Body</label>\n            <textarea class=\"form-control\" formControlName=\"body\" rows=\"3\"></textarea>\n          </fieldset>\n        </div>\n      </div>\n\n      <label>Headers</label>\n\n      <div class=\"row\" style=\"margin-bottom: 5px;\" formGroupName=\"headers\"\n        *ngFor=\"let headerKey of headersArr\">\n        <div class=\"col-xs-4\">\n          <input type=\"text\" disabled [value]=\"headerKey\" class=\"form-control\">\n        </div>\n        <div class=\"col-xs-4\">\n          <input type=\"text\" class=\"form-control\" [formControlName]=\"headerKey\">\n        </div>\n        <div class=\"col-xs-4\" style=\"text-align: right;\">\n          <button type=\"button\" class=\"btn btn-danger\"\n            style=\"width: 110px;\"\n            (click)=\"removeHeaderRow(headerKey)\">\n            - Remove\n          </button>\n        </div>\n      </div>\n    </form>\n\n    <!-- Add new header TODO make into form-->\n    <form [formGroup]=\"newHeaderForm\">\n      <div class=\"row\">\n        <div class=\"col-xs-4\">\n          <input type=\"text\" class=\"form-control\" placeholder=\"Header\"\n            formControlName=\"newHeaderKey\">\n        </div>\n        <div class=\"col-xs-4\"></div>\n        <div class=\"col-xs-4\" style=\"text-align: right;\">\n          <button type=\"button\" class=\"btn btn-success\"\n            style=\"width: 110px;\"\n            (click)=\"addHeaderRow()\">\n            + Add\n          </button>\n        </div>\n      </div>\n    </form>\n  "
+    }),
+    __metadata("design:paramtypes", [forms_1.FormBuilder])
+], RequestFormComponent);
 exports.RequestFormComponent = RequestFormComponent;
 //# sourceMappingURL=request-form.component.js.map

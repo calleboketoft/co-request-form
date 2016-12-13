@@ -8,8 +8,8 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
 var __metadata = (this && this.__metadata) || function (k, v) {
     if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
-var core_1 = require('@angular/core');
-var _1 = require('../../');
+var core_1 = require("@angular/core");
+var _1 = require("../../");
 var AppComponent = (function () {
     function AppComponent() {
         this.preconfiguredHeaders = {
@@ -20,18 +20,18 @@ var AppComponent = (function () {
     AppComponent.prototype.getRequestValues = function () {
         console.log(this.requestFormComponent.request());
     };
-    __decorate([
-        core_1.ViewChild(_1.RequestFormComponent), 
-        __metadata('design:type', _1.RequestFormComponent)
-    ], AppComponent.prototype, "requestFormComponent", void 0);
-    AppComponent = __decorate([
-        core_1.Component({
-            selector: 'app',
-            template: "\n    <div class='container'>\n      <h3>Angular 2 request-form</h3>\n      <request-form\n        [url]=\"'http://someurl'\"\n        [method]=\"'GET'\"\n        [body]=\"'{}'\"\n        [headers]=\"preconfiguredHeaders\">\n      </request-form>\n      <br >\n      <button class=\"btn btn-primary\" (click)=\"getRequestValues()\">\n        Get request form values\n      </button>\n    </div>\n  "
-        }), 
-        __metadata('design:paramtypes', [])
-    ], AppComponent);
     return AppComponent;
 }());
+__decorate([
+    core_1.ViewChild(_1.RequestFormComponent),
+    __metadata("design:type", _1.RequestFormComponent)
+], AppComponent.prototype, "requestFormComponent", void 0);
+AppComponent = __decorate([
+    core_1.Component({
+        selector: 'app',
+        template: "\n    <div class='container'>\n      <h3>Angular 2 request-form</h3>\n      <request-form\n        [url]=\"'http://someurl'\"\n        [method]=\"'GET'\"\n        [body]=\"'{}'\"\n        [headers]=\"preconfiguredHeaders\">\n      </request-form>\n      <br >\n      <button class=\"btn btn-primary\" (click)=\"getRequestValues()\">\n        Get request form values\n      </button>\n    </div>\n  "
+    }),
+    __metadata("design:paramtypes", [])
+], AppComponent);
 exports.AppComponent = AppComponent;
 //# sourceMappingURL=app.component.js.map
