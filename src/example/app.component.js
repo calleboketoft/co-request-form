@@ -30,8 +30,7 @@ AppComponent = __decorate([
     core_1.Component({
         selector: 'app',
         template: "\n    <div class='container'>\n      <h3>Angular 2 request-form</h3>\n      <request-form\n        [url]=\"'http://someurl'\"\n        [method]=\"'GET'\"\n        [body]=\"'{}'\"\n        [headers]=\"preconfiguredHeaders\">\n      </request-form>\n      <br >\n      <button class=\"btn btn-primary\" (click)=\"getRequestValues()\">\n        Get request form values\n      </button>\n    </div>\n  "
-    }),
-    __metadata("design:paramtypes", [])
+    })
 ], AppComponent);
 exports.AppComponent = AppComponent;
 //# sourceMappingURL=app.component.js.map

@@ -1,10 +1,4 @@
-import {
-  Component,
-  Input,
-  Output,
-  EventEmitter,
-  OnInit
-} from '@angular/core'
+import { Component, Input, Output, EventEmitter, OnInit } from '@angular/core'
 import { FormBuilder, FormControl } from '@angular/forms'
 
 @Component({
@@ -85,22 +79,30 @@ export class RequestFormComponent implements OnInit {
   // Logics to handle externally updated values
   @Input() set method (value) {
     this.methodStr = value
-    if (!this.ngOnInitDone) return
+    if (!this.ngOnInitDone) {
+      return
+    }
     this.requestForm.controls.method.setValue(value)
   };
   @Input() set url (value) {
     this.urlStr = value
-    if (!this.ngOnInitDone) return
+    if (!this.ngOnInitDone) {
+      return
+    }
     this.requestForm.controls.url.setValue(value)
   };
   @Input() set body (value) {
     this.bodyStr = value
-    if (!this.ngOnInitDone) return
+    if (!this.ngOnInitDone) {
+      return
+    }
     this.requestForm.controls.body.setValue(value)
   };
   @Input() set headers (value) {
     this.headersObj = value
-    if (!this.ngOnInitDone) return
+    if (!this.ngOnInitDone) {
+      return
+    }
     // When new headers come in, remove the old controls
     this.headersArr.forEach(headerKey => {
       this.requestForm.controls.headers.removeControl(headerKey)
@@ -111,18 +113,18 @@ export class RequestFormComponent implements OnInit {
 
     // Add all the new header controls
     Object.keys(value).forEach(headerKey => {
-      var headerControl = new FormControl(value[headerKey])
+      let headerControl = new FormControl(value[headerKey])
       this.requestForm.controls.headers.addControl(headerKey, headerControl)
     })
-  };
+  }
 
-  public methodStr = 'GET';
-  public urlStr = '';
-  public bodyStr = '{}';
-  public headersObj = {};
+  public methodStr = 'GET'
+  public urlStr = ''
+  public bodyStr = '{}'
+  public headersObj = {}
 
   // keep track of which headers are currently present
-  public headersArr = [];
+  public headersArr = []
 
   public methodOptions = [
     'GET',
@@ -133,13 +135,13 @@ export class RequestFormComponent implements OnInit {
     'OPTIONS',
     'HEAD'
   ]
-  public requestForm;
-  public newHeaderForm;
+  public requestForm
+  public newHeaderForm
+  public ngOnInitDone = false
 
   constructor (public formBuilder: FormBuilder) {}
 
-  public ngOnInitDone = false
-  ngOnInit () {
+  public ngOnInit () {
     this.ngOnInitDone = true
     this.initializeForm()
   }

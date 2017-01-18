@@ -34,8 +34,9 @@ var RequestFormComponent = (function () {
         // Logics to handle externally updated values
         set: function (value) {
             this.methodStr = value;
-            if (!this.ngOnInitDone)
+            if (!this.ngOnInitDone) {
                 return;
+            }
             this.requestForm.controls.method.setValue(value);
         },
         enumerable: true,
@@ -45,8 +46,9 @@ var RequestFormComponent = (function () {
     Object.defineProperty(RequestFormComponent.prototype, "url", {
         set: function (value) {
             this.urlStr = value;
-            if (!this.ngOnInitDone)
+            if (!this.ngOnInitDone) {
                 return;
+            }
             this.requestForm.controls.url.setValue(value);
         },
         enumerable: true,
@@ -56,8 +58,9 @@ var RequestFormComponent = (function () {
     Object.defineProperty(RequestFormComponent.prototype, "body", {
         set: function (value) {
             this.bodyStr = value;
-            if (!this.ngOnInitDone)
+            if (!this.ngOnInitDone) {
                 return;
+            }
             this.requestForm.controls.body.setValue(value);
         },
         enumerable: true,
@@ -68,8 +71,9 @@ var RequestFormComponent = (function () {
         set: function (value) {
             var _this = this;
             this.headersObj = value;
-            if (!this.ngOnInitDone)
+            if (!this.ngOnInitDone) {
                 return;
+            }
             // When new headers come in, remove the old controls
             this.headersArr.forEach(function (headerKey) {
                 _this.requestForm.controls.headers.removeControl(headerKey);
@@ -85,7 +89,6 @@ var RequestFormComponent = (function () {
         enumerable: true,
         configurable: true
     });
-    ;
     RequestFormComponent.prototype.ngOnInit = function () {
         this.ngOnInitDone = true;
         this.initializeForm();
